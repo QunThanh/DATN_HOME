@@ -24,84 +24,6 @@ void IRAM_ATTR callbackInterrupt();
 void executeMqttCommand(String command);
 DHT dht(DHT_PIN, DHTTYPE);
 
-//============= DHT ============
-void setupDHT()
-{
-    dht.begin();
-    Serial.println("setup DHT done !!!");
-}
-
-void stateLed()
-{
-    buffer_red_led_status = digitalRead(RED_LED_PIN);
-    buffer_green_led_status = digitalRead(GREEN_LED_PIN);
-}
-void readDHT()
-{
-    hum = dht.readHumidity();
-    temp = dht.readTemperature();
-    if (isnan(hum) || isnan(temp)) {
-        Serial.println(F("Failed to read from DHT sensor!"));
-        buffer_hum = -1;
-        buffer_temp = -1;
-        return;
-    }
-    buffer_hum = hum ;
-    buffer_temp = temp ;
-}
-
-// ============= inout & output ============
-void setupInOutput()
-{
-    pinMode(RED_LED_PIN, OUTPUT);
-    pinMode(GREEN_LED_PIN, OUTPUT);
-    pinMode(DHT_PIN, INPUT);
-    pinMode(INTERRUPT_PIN, INPUT);
-    digitalWrite(RED_LED_PIN, LOW);
-    digitalWrite(GREEN_LED_PIN, LOW);
-    //interrupt
-    attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), callbackInterrupt, RISING);
-}
-
-//===== logic control led // interrupt ======
-void IRAM_ATTR callbackInterrupt()
-{
-    is_press = true;
-    count_press++;
-    old_time_press = millis();
-}
-
-void handledButton()
-{
-  if(!is_press)
-      return;
-
-  if(millis() - old_time_press > delay_time_press)
-  {
-      if(count_press == 1)
-      {
-        buffer_red_led_status = digitalRead(RED_LED_PIN);
-        digitalWrite(RED_LED_PIN, !buffer_red_led_status);
-        is_press = false;
-        count_press = 0;
-        Serial.println("red led: " + String(buffer_red_led_status) );
-      }
-      if(count_press == 2)
-      {
-        buffer_green_led_status = digitalRead(GREEN_LED_PIN);
-        digitalWrite(GREEN_LED_PIN, !buffer_green_led_status);
-        is_press = false;
-        count_press = 0;
-        Serial.println("red led: " + String(buffer_green_led_status) );
-      }
-      if(count_press > 2)
-      {
-        Serial.println("count_press > 2");
-        is_press = false;
-        count_press = 0;
-      }
-  }
-}
 
 //======== report reading ==========
 void reportReadding()
@@ -144,7 +66,91 @@ void reportReadding()
     json_string = "";
 }
 
+//============= DHT ============
+void setupDHT()
+{
+    dht.begin();
+    Serial.println("setup DHT done !!!");
+}
+void readDHT()
+{
+    hum = dht.readHumidity();
+    temp = dht.readTemperature();
+    if (isnan(hum) || isnan(temp)) {
+        Serial.println(F("Failed to read from DHT sensor!"));
+        buffer_hum = -1;
+        buffer_temp = -1;
+        return;
+    }
+    buffer_hum = hum ;
+    buffer_temp = temp ;
+}
 
+// ============= inout & output ============
+void setupInOutput()
+{
+    pinMode(RED_LED_PIN, OUTPUT);
+    pinMode(GREEN_LED_PIN, OUTPUT);
+    pinMode(DHT_PIN, INPUT);
+    pinMode(INTERRUPT_PIN, INPUT);
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    //interrupt
+    attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), callbackInterrupt, RISING);
+}
+
+void readLedState()
+{
+    buffer_red_led_status = digitalRead(RED_LED_PIN);
+    buffer_green_led_status = digitalRead(GREEN_LED_PIN);
+}
+
+//===== logic control led // interrupt ======
+void IRAM_ATTR callbackInterrupt()
+{
+    is_press = true;
+    count_press++;
+    old_time_press = millis();
+}
+
+void handledButton()
+{
+  if(!is_press)
+      return;
+
+  if(millis() - old_time_press > delay_time_press)
+  {
+      if(count_press == 1)
+      {
+        buffer_red_led_status = digitalRead(RED_LED_PIN);
+        digitalWrite(RED_LED_PIN, !buffer_red_led_status);
+        is_press = false;
+        count_press = 0;
+        buffer_red_led_status = digitalRead(RED_LED_PIN);
+        Serial.println("red led: " + String(buffer_red_led_status ? "on" : "off") );
+        reportReadding();
+        return;
+      }
+      if(count_press == 2)
+      {
+        buffer_green_led_status = digitalRead(GREEN_LED_PIN);
+        digitalWrite(GREEN_LED_PIN, !buffer_green_led_status);
+        is_press = false;
+        count_press = 0;
+        buffer_green_led_status = digitalRead(GREEN_LED_PIN);
+        Serial.println("greed led: " + String(buffer_green_led_status ? "on" : "off") );
+        reportReadding();
+        return;
+      }
+      if(count_press > 2)
+      {
+        Serial.println("count_press > 2");
+        is_press = false;
+        count_press = 0;
+        return;
+      }
+  }
+}
 
 void setupApp()
 {
@@ -161,7 +167,7 @@ void loopApp()
 {   
     //DHT
     readDHT();
-    stateLed();
+    readLedState();
 
     //led
     handledButton();

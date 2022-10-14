@@ -18,7 +18,7 @@ int list_io_interrupt[] = {21};                  // list_io_interrupt.length() =
 
 //MQTT
 #define DELAY_TIME_MQTT         1*60            //1m
-#define MQTT_SERVER             "192.168.1.11"   //your IP
+#define MQTT_SERVER             "192.168.1.3"   //your IP
 #define MQTT_PORT               1883
 #define MQTT_ID                 "ESP"           // can change
 #define TOPPIC_SUB              "S-ESP"         // can change 'ESP', can't change 'S-'
