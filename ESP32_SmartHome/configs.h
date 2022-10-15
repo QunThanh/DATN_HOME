@@ -2,8 +2,8 @@
 #define __CONFIGS_H__
 
 //Wifi
-const char *wifi_ssid[]{"THENAM", "NTGD"};
-const char *wifi_pw[] = {"0964941600", "112233445566"};
+const char *wifi_ssid[]{"THENAM", "NTGD"};      // your wifi name
+const char *wifi_pw[] = {"0964941600", "112233445566"}; //your wifi password 
 #define NUM_WIFI                2               // NUM_WIFI == wifi_pw.length() == wifi_ssid.length()
 #define LED_STT_DELAY_TIME      60              // 60s
 
@@ -25,12 +25,10 @@ int list_io_interrupt[] = {21};                  // list_io_interrupt.length() =
 #define TOPPIC_PUB              "P-ESP"         // can change 'ESP', can't change 'P-'
 
 //Application
-#define RED_LED_PIN             18
-#define GREEN_LED_PIN           5
+#define RED_LED_PIN             18              //IO18
+#define GREEN_LED_PIN           5               //IO5
 
-#define DHT_PIN                 19
-#define DHTTYPE                 DHT11
-
-#define INTERRUPT_PIN           21
+#define DHT_PIN                 19              //IO19
+#define DHTTYPE                 DHT11           //type DHT
 
 #endif

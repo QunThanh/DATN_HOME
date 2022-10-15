@@ -62,6 +62,11 @@ void mqttSendServer(String data)
     }
 }
 
+void mqttSendServerNow(String data)
+{
+    mqtt_client.publish(toppicpub, data.c_str());
+}
+
 void statusMQTT() 
 {
     int state = mqtt_client.state();
@@ -122,8 +127,7 @@ void showInforMQTT(){
 
 void callbackMqtt(char *topic, byte *payload, unsigned int length)
 {
-    Serial.print("Recived from: ");
-    Serial.println(topic);
+    Serial.print("Recived from " + topic + " : ");
     for (int i = 0; i < length; i++)
     {
         char temp_data = (char)payload[i];
@@ -132,7 +136,7 @@ void callbackMqtt(char *topic, byte *payload, unsigned int length)
     Serial.println(buffer_data_from_sever);
 
     executeMqttCommand(buffer_data_from_sever);
-
+    
     // reset buffer_data_from_sever
     buffer_data_from_sever = "";
 }
