@@ -16,7 +16,41 @@
 void executeMqttCommand(String command) 
 {
   Serial.println("command from Server: " + command);
+  if(command.length() < 0)
+    return;    
   
+  int cmd_index = -2;
+  cmd_index = command.indexOf(";");
+  
+  //handel without ";"
+  //eg: on
+  if(cmd_index < 0)
+  {
+    if(command == "on")
+      onAllLed();
+    if(command == "off")
+      offAllLed(); 
+   
+    is_report_now = true;
+    return;
+  }
+
+  //handel with ";"
+  //eg: 18;on (io18 on)
+  int io = command.substring(0,cmd_index).toInt();
+  String sub_cmd = command.substring(cmd_index + 1);
+  
+  if(sub_cmd == "on")
+    onled(io);
+
+  if(sub_cmd == "off")
+    offLed(io);
+
+  if(sub_cmd == "toggle")
+    toggleLed(io);  
+
+  is_report_now = true;
+  return;
 }
 
 void setup()

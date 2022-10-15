@@ -127,7 +127,7 @@ void showInforMQTT(){
 
 void callbackMqtt(char *topic, byte *payload, unsigned int length)
 {
-    Serial.print("Recived from " + topic + " : ");
+    Serial.print("Recived from " + String(topic) + " : ");
     for (int i = 0; i < length; i++)
     {
         char temp_data = (char)payload[i];

@@ -19,11 +19,8 @@ unsigned long long old_time_press = 0;
 unsigned long long delay_time_press =200;
 
 unsigned long long old_time_report = 0;
-
-//==============================
-
-void IRAM_ATTR callbackInterrupt();
-void executeMqttCommand(String command);
+bool is_report_now = false;
+//========== Function ===============
 DHT dht(DHT_PIN, DHTTYPE);
 
 
@@ -53,9 +50,9 @@ void reportReadding()
     json_string += String(buffer_hum);
     json_string += ",";
 
-    json_string += "\"temp\":\"";
+    json_string += "\"temp\":";
     json_string += String(buffer_temp);
-    json_string += "\",";
+    json_string += ",";
 
     json_string += "\"now\":\"";
     json_string += String(millis());
@@ -65,10 +62,11 @@ void reportReadding()
 
     Serial.println( String(json_string) );
     
-    if(is_press == true)
+    if(is_press == true || is_report_now == true)
     {
       mqttSendServerNow(json_string); 
       json_string = "";
+      is_report_now = false;
       return;
     }   
 
@@ -158,6 +156,47 @@ void handledButton()
       }
   }
 }
+
+//===== appication in .ino ======
+void offAllLed()
+{
+    digitalWrite(RED_LED_PIN,LOW);
+    digitalWrite(GREEN_LED_PIN,LOW);
+    buffer_red_led_status = true;
+    buffer_green_led_status = true;
+}
+void onAllLed()
+{
+    digitalWrite(RED_LED_PIN,HIGH);    
+    digitalWrite(GREEN_LED_PIN,HIGH);
+    buffer_red_led_status = false;
+    buffer_green_led_status = false;
+}
+
+void onled(int pinIO)
+{
+    digitalWrite(pinIO,HIGH);
+    pinIO == RED_LED_PIN ? buffer_red_led_status = true : buffer_green_led_status = true;
+}
+
+void offLed(int pinIO)
+{
+    digitalWrite(pinIO,LOW);       
+    pinIO == RED_LED_PIN ? buffer_red_led_status = false : buffer_green_led_status = false;
+}
+
+void toggleLed(int pinIO)
+{
+    int value_tmp = digitalRead(pinIO);
+    digitalWrite(pinIO,!value_tmp);       
+    if(pinIO == RED_LED_PIN)
+    {
+        buffer_red_led_status = !value_tmp;
+        return;
+    }
+    buffer_green_led_status = !value_tmp;
+}
+//==============================
 
 void setupApp()
 {
