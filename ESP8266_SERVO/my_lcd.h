@@ -1,5 +1,5 @@
-#ifndef __LCD_H__
-#define __LCD_H__
+#ifndef __MY_LCD_H__
+#define __MY_LCD_H__
 
 /*  addresses I2C
  *  A2 - A1 - A0

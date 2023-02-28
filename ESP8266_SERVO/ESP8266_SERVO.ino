@@ -10,9 +10,9 @@
 #define LCD_I2C_NUM_ROW       2  
 // SDA 4 (D2)
 // SCL 5 (D1)
-#include "LCD.h"
+#include "my_lcd.h"
 
-#define SERVO_PIN             15        // D8
+#define SERVO_PIN             2        //15 D8
 
 // SS/SDA     2  (D4)
 // SCK        14 (D5)
@@ -20,7 +20,7 @@
 // MISO       12 (D6)
 // RST        0  (D3)
 #define RST_PIN               0         // D3
-#define SS_PIN                2         // D4
+#define SS_PIN                16         //2 D4
 
 
 WiFiClient client;
@@ -31,21 +31,21 @@ Servo servo;
 //============
 const char* ssid = "NTGD";
 const char* pass = "112233445566";
-const char *mqttserver = "192.168.1.7"; // ip laptop
+const char *mqttserver = "192.168.1.15"; // ip laptop
 const int mqttport = 1883;
 const char *mqttid = "gate";
 const char *toppicsub = "S-ESP-GATE";
 const char *toppicpub = "P-ESP-GATE";
+const char *toppicpubID = "P-ID-ESP-GATE";
 
 unsigned long old_time_report = millis();
-unsigned long last_noti_time = millis();
 unsigned long delay_time_report = 5;       // 5s 
 
 String buffer_data_tu_nodered = "";
-byte bufferID[4];
+String buffer_id = "";
+String strID = "";
 int notification = 0;           // 1 : mean open, 0 : do nothing, -1 : wrong ID
-bool is_open_door = false;
-uint8_t threshold_open = 200;
+int threshold_open = 199;       // if value is < 200
 
 
 //===========
@@ -76,6 +76,7 @@ void xuLyLenhTuNodeRed(String cmd)
   {
     notification = 1;
     servo.write(threshold_open);
+    delay(500);
     Serial.println("open the door");      // debug
     return;
   }
@@ -84,6 +85,7 @@ void xuLyLenhTuNodeRed(String cmd)
   {
     notification = 0;
     servo.write(0);
+    delay(500);    
     Serial.println("close the door");      // debug
     return;
   }
@@ -106,7 +108,7 @@ void callback(char *topic, byte *payload, unsigned int length)
     char temp_data_mqtt = (char)payload[i];
     buffer_data_tu_nodered += temp_data_mqtt;  
   }
-  Serial.print("cmd Node-red (8266): ");
+  Serial.print("cmd Node-red (8266):");
   Serial.print(buffer_data_tu_nodered);
   Serial.println(".");
   xuLyLenhTuNodeRed(buffer_data_tu_nodered);
@@ -119,10 +121,19 @@ void callback(char *topic, byte *payload, unsigned int length)
 // hàm gửi dữ liệu lên Node-red
 bool guiDataLenNodered( String data_gui_nodered )
 {
-  Serial.println("connected:" + String(mqtt_client.connected()) + ".");
   if (mqtt_client.connected())
   {
     mqtt_client.publish(toppicpub, data_gui_nodered.c_str());
+    return true;
+  }
+  return false;
+}
+
+bool guiDataIDLenNodered( String data_gui_nodered )
+{
+  if (mqtt_client.connected())
+  {
+    mqtt_client.publish(toppicpubID, data_gui_nodered.c_str());
     return true;
   }
   return false;
@@ -135,17 +146,12 @@ void reportReadings()
 
     // last ID login 
     dataGuiNodeRed += "\"lastID\":\"";
-    dataGuiNodeRed += String((char*)bufferID);
+    dataGuiNodeRed += String(buffer_id);
     dataGuiNodeRed += "\",";
 
     // notification
     dataGuiNodeRed += "\"noti\":";
     dataGuiNodeRed += String(notification);
-    dataGuiNodeRed += ",";
-
-    // status door
-    dataGuiNodeRed += "\"door\":";
-    dataGuiNodeRed += String(is_open_door);
     dataGuiNodeRed += ",";
 
     // servo deg
@@ -219,9 +225,10 @@ void setupWifi()
 void setupServo() {
   servo.attach(SERVO_PIN); 
   delay(10);
-  servo.write(100);
+  servo.write(threshold_open);
   delay(100);
   servo.write(0);
+  delay(100);
   Serial.println("setup servo done!");
 }
 
@@ -254,31 +261,23 @@ void loopRFID() {
 	if ( ! rfid.PICC_ReadCardSerial()) {
 		return;
 	}
-  
-  if (rfid.uid.uidByte[0] != bufferID[0] || 
-    rfid.uid.uidByte[1] != bufferID[1] || 
-    rfid.uid.uidByte[2] != bufferID[2] || 
-    rfid.uid.uidByte[3] != bufferID[3] ) {
-    Serial.println(F("A new card has been detected."));
 
-    // Store NUID into bufferID array
-    for (byte i = 0; i < 4; i++) {
-      bufferID[i] = rfid.uid.uidByte[i];
-    }
-   
-    Serial.println(F("The NUID tag is:"));
-    Serial.print(F("In hex: "));
-    printHex(rfid.uid.uidByte, rfid.uid.size);
-    Serial.println();
+  // Store NUID into bufferID array
+  strID = "";
+  for (byte i = 0; i < 4; i++) {
+    strID += String(rfid.uid.uidByte[i]) + " ";
   }
-  else Serial.println(F("Card read previously."));
-	// Dump debug info about the card; PICC_HaltA() is automatically called
+  buffer_id = strID;
+  Serial.println("The NUID tag is:");
+  Serial.print("In hex:" + strID);
+  // printHex(rfid.uid.uidByte, rfid.uid.size);
+  Serial.println();
 
   rfid.PICC_HaltA();
   
   rfid.PCD_StopCrypto1();
 
-  guiDataLenNodered(String((char*)bufferID));
+  guiDataIDLenNodered(strID);
   delay(50);
 }
 
@@ -297,6 +296,7 @@ void loopLCD(){
   if(notification == 0)
   {
     //colum, row, message
+    // servo.write(0);
     clearLcd();
     printLcd(0,0,"Xin nhap the");
     printLcd(0,1,"ben nay ---->");
@@ -306,6 +306,7 @@ void loopLCD(){
   
   if(notification == 1)
   {
+    // servo.write(threshold_open);
     clearLcd();
     printLcd(0,0,"The chinh xac.");
     printLcd(0,1,"----> Moi vao");
@@ -313,6 +314,7 @@ void loopLCD(){
     return;
   }
   
+  // servo.write(0);
   clearLcd();
   printLcd(0,0,"The k chinh xac.");
   printLcd(0,1,"Xin quet lai the");
@@ -342,12 +344,11 @@ void setup() {
 }
 
 void loop() {
+  loopLCD();
 
+  loopSendReport();
+  
   loopRFID();
 
   mqtt_client.loop();       // hàm duy trì sự kiện lắng nghe lệnh từ Node-red
-  
-  loopSendReport();
-
-  loopLCD();
 }
