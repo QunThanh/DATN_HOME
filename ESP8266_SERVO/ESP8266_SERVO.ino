@@ -54,7 +54,7 @@ int threshold_open = 199;       // if value is < 200
 void xuLyLenhTuNodeRed(String cmd)
 {
   // threshold door open
-  // range 0-255
+  // range 0-199
   int num_index = cmd.indexOf(";");
   if(num_index > 0)
   {

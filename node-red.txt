@@ -1,0 +1,461 @@
+[
+    {
+        "id": "2c9f122c7f015274",
+        "type": "ui_table",
+        "z": "84dc9485503d417b",
+        "group": "ed26ce0b24e0b720",
+        "name": "",
+        "order": 4,
+        "width": 14,
+        "height": 4,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1210,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "127f91a36a000fb6",
+        "type": "mqtt in",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "topic": "P-ESP-GATE",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a514943117bbaccb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 870,
+        "y": 660,
+        "wires": [
+            [
+                "77ca0b188c80d532"
+            ]
+        ]
+    },
+    {
+        "id": "77ca0b188c80d532",
+        "type": "debug",
+        "z": "84dc9485503d417b",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c899a97b4891f9eb",
+        "type": "mqtt out",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "topic": "S-ESP-GATE",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a514943117bbaccb",
+        "x": 1060,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "398c53811f3c23b7",
+        "type": "inject",
+        "z": "84dc9485503d417b",
+        "name": "100",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "threshold;100",
+        "payloadType": "str",
+        "x": 870,
+        "y": 500,
+        "wires": [
+            [
+                "c899a97b4891f9eb"
+            ]
+        ]
+    },
+    {
+        "id": "b6c0605fa61e590a",
+        "type": "mqtt in",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "topic": "P-ESP-HOME",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a514943117bbaccb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 870,
+        "y": 780,
+        "wires": [
+            [
+                "8f7325ac48530b63"
+            ]
+        ]
+    },
+    {
+        "id": "8f7325ac48530b63",
+        "type": "debug",
+        "z": "84dc9485503d417b",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "4ed45d0d6b10ef26",
+        "type": "inject",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "open",
+        "payloadType": "str",
+        "x": 870,
+        "y": 540,
+        "wires": [
+            [
+                "c899a97b4891f9eb"
+            ]
+        ]
+    },
+    {
+        "id": "489a32e753f00da1",
+        "type": "inject",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "close",
+        "payloadType": "str",
+        "x": 870,
+        "y": 580,
+        "wires": [
+            [
+                "c899a97b4891f9eb"
+            ]
+        ]
+    },
+    {
+        "id": "9c77adcdf3729b2d",
+        "type": "inject",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "wrong",
+        "payloadType": "str",
+        "x": 870,
+        "y": 620,
+        "wires": [
+            [
+                "c899a97b4891f9eb"
+            ]
+        ]
+    },
+    {
+        "id": "be979e074a6a328a",
+        "type": "mqtt in",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "topic": "P-ID-ESP-GATE",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a514943117bbaccb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 880,
+        "y": 720,
+        "wires": [
+            [
+                "0237fb57c9eff1f0"
+            ]
+        ]
+    },
+    {
+        "id": "bc6131d50dadec21",
+        "type": "debug",
+        "z": "84dc9485503d417b",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "0237fb57c9eff1f0",
+        "type": "function",
+        "z": "84dc9485503d417b",
+        "name": "trim String",
+        "func": "msg.ID = msg.payload.trim();\nvar msg1 = {}\nmsg1.payload = \"close\";\nreturn [msg,msg1];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 720,
+        "wires": [
+            [
+                "bc6131d50dadec21",
+                "2c9f122c7f015274",
+                "1e9132ef1b90a3be"
+            ],
+            [
+                "d0278b97d6252606"
+            ]
+        ]
+    },
+    {
+        "id": "1e9132ef1b90a3be",
+        "type": "function",
+        "z": "84dc9485503d417b",
+        "name": "filter ID",
+        "func": "var arrID = global.get(\"gl_arr_id\") || [];\nvar currentID = msg.ID;\nvar isOpen = false;\nisOpen = arrID.filter( item => item == currentID);\n\nif (isOpen)\n{\n    msg.payload = \"open\";\n    return msg;\n}\nmsg.payload = \"wrong\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 700,
+        "wires": [
+            [
+                "b9d2e2d445b70487",
+                "488305a01ca4a5e9"
+            ]
+        ]
+    },
+    {
+        "id": "cc36f93cd1ed28bd",
+        "type": "function",
+        "z": "84dc9485503d417b",
+        "name": "filter ID",
+        "func": "var arrID = [{id:\"154 114 118 128\"}];\n\nglobal.set(\"gl_arr_ID\", arrID)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbb2758429369175",
+        "type": "inject",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"chipID\":\"ESP-D8A27D93\",\"red_led\":0,\"green_led\":0,\"hum\":65,\"temp\":29.5,\"now\":\"952496\"}",
+        "payloadType": "json",
+        "x": 1070,
+        "y": 840,
+        "wires": [
+            [
+                "cc36f93cd1ed28bd"
+            ]
+        ]
+    },
+    {
+        "id": "b9d2e2d445b70487",
+        "type": "mqtt out",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "topic": "S-ESP-GATE",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a514943117bbaccb",
+        "x": 1420,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "d0278b97d6252606",
+        "type": "delay",
+        "z": "84dc9485503d417b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1220,
+        "y": 740,
+        "wires": [
+            [
+                "b9d2e2d445b70487",
+                "488305a01ca4a5e9"
+            ]
+        ]
+    },
+    {
+        "id": "488305a01ca4a5e9",
+        "type": "debug",
+        "z": "84dc9485503d417b",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1400,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "ed26ce0b24e0b720",
+        "type": "ui_group",
+        "name": "SmartHome",
+        "tab": "829a6eb75df8caba",
+        "order": 1,
+        "disp": true,
+        "width": 30,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a514943117bbaccb",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "829a6eb75df8caba",
+        "type": "ui_tab",
+        "name": "showInfor",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
