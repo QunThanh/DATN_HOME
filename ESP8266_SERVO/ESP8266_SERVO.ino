@@ -12,7 +12,7 @@
 // SCL 5 (D1)
 #include "my_lcd.h"
 
-#define SERVO_PIN             2        //15 D8
+#define SERVO_PIN             2        // D4
 
 // SS/SDA     2  (D4)
 // SCK        14 (D5)
@@ -20,7 +20,7 @@
 // MISO       12 (D6)
 // RST        0  (D3)
 #define RST_PIN               0         // D3
-#define SS_PIN                16         //2 D4
+#define SS_PIN                16        // D0
 
 
 WiFiClient client;
