@@ -1,14 +1,17 @@
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <PubSubClient.h>
 #include <WiFiClient.h>
 #include <DHT.h>
 
 
-#define NOTI_LED_PIN 2  // don't fix define. don't use D4 and D3
-#define IN1_PIN 13      // D7
-#define IN2_PIN 12      // D6
-#define DOAM_PIN A0     // A0
-#define DHT_PIN 5       // D1
+#define NOTI_LED_PIN 2  // don't fix define. don't use D2, TX0 and RX0
+#define IN3_PIN 13      // D13
+#define IN4_PIN 12      // D12
+#define DOAM_PIN 5      // D5
+#define DHT_PIN 4       // D4
+#define DEN_PIN 25      // D25
+// +5V (L289) ->  VIN (ESP)
+// GND (L289) ->  GND (ESP)
 
 
 WiFiClient client;
@@ -20,8 +23,8 @@ const char *pass = "112233445566";
 const char *mqttserver = "192.168.1.15";  // ip laptop
 const int mqttport = 1883;
 const char *mqttid = "pump";
-const char *toppicsub = "S-ESP8266-PUMP";
-const char *toppicpub = "P-ESP8266-PUMP";
+const char *toppicsub = "S-ESP32-PUMP";
+const char *toppicpub = "P-ESP32-PUMP";
 
 unsigned long old_time_report = millis();
 unsigned long delay_time_report = 5;  // 5s
@@ -29,6 +32,7 @@ unsigned long delay_time_report = 5;  // 5s
 float doam = 0;
 float nhietdo = 0;
 int buffer_bom = 0;
+int buffer_den = 0;
 int doam_dat = 0;
 
 String buffer_data_tu_nodered = "";
@@ -68,19 +72,33 @@ void layGiaTriTuDHT() {
 //===========
 void xuLyLenhTuNodeRed(String cmd) {
   // pump
-  if (cmd == "open8266") {
-    digitalWrite(IN1_PIN, HIGH);
-    digitalWrite(IN2_PIN, LOW);
+  if (cmd == "open32") {
+    digitalWrite(IN3_PIN, HIGH);
+    digitalWrite(IN4_PIN, LOW);
     buffer_bom = 10;
     Serial.println("open pump");  // debug
     return;
   }
 
-  if (cmd == "close8266") {
-    digitalWrite(IN1_PIN, LOW);
-    digitalWrite(IN2_PIN, LOW);
+  if (cmd == "close32") {
+    digitalWrite(IN3_PIN, LOW);
+    digitalWrite(IN4_PIN, LOW);
     buffer_bom = 0;
     Serial.println("close pump");  // debug
+    return;
+  }
+
+  if (cmd == "ledon32") {
+    digitalWrite(DEN_PIN, HIGH);
+    buffer_den = 1;
+    Serial.println("open led");  // debug
+    return;
+  }
+
+  if (cmd == "ledoff32") {
+    digitalWrite(DEN_PIN, LOW);
+    buffer_den = 0;
+    Serial.println("close led");  // debug
     return;
   }
 }
@@ -120,22 +138,26 @@ void reportReadings() {
 
   dataGuiNodeRed += "\"dataAuto\":";
   dataGuiNodeRed += String(1);
-  dataGuiNodeRed += ",";
+  dataGuiNodeRed += ",";  
 
-  dataGuiNodeRed += "\"bom8266\":";
+  dataGuiNodeRed += "\"bom32\":";
   dataGuiNodeRed += String(buffer_bom);
   dataGuiNodeRed += ",";
 
-  dataGuiNodeRed += "\"dat8266\":";
+  dataGuiNodeRed += "\"dat32\":";
   dataGuiNodeRed += String(doam_dat);
   dataGuiNodeRed += ",";
 
-  dataGuiNodeRed += "\"nd8266\":";
+  dataGuiNodeRed += "\"nd32\":";
   dataGuiNodeRed += String(buffer_nhietdo);
   dataGuiNodeRed += ",";
 
-  dataGuiNodeRed += "\"da8266\":";
+  dataGuiNodeRed += "\"da32\":";
   dataGuiNodeRed += String(buffer_doam);
+  dataGuiNodeRed += ",";
+
+  dataGuiNodeRed += "\"den32\":";
+  dataGuiNodeRed += String(buffer_den);
   dataGuiNodeRed += ",";
 
   unsigned long now = millis();
@@ -202,13 +224,15 @@ void loopSendReport() {
 
 void setup() {
   Serial.begin(115200);
-  pinMode(IN1_PIN, OUTPUT);
-  pinMode(IN2_PIN, OUTPUT);
+  pinMode(IN3_PIN, OUTPUT);
+  pinMode(IN4_PIN, OUTPUT);
   pinMode(NOTI_LED_PIN, OUTPUT);
+  pinMode(DEN_PIN, OUTPUT);
   pinMode(DOAM_PIN, INPUT);
 
-  digitalWrite(IN1_PIN, LOW);
-  digitalWrite(IN2_PIN, LOW);
+  digitalWrite(IN3_PIN, LOW);
+  digitalWrite(IN4_PIN, LOW);
+  digitalWrite(DEN_PIN, LOW);
   digitalWrite(NOTI_LED_PIN, LOW);
 
   setupWifi();
@@ -223,7 +247,7 @@ void setup() {
 
 void loop() {
   layGiaTriTuDHT();
-  
+
   loopSendReport();
   mqtt_client.loop();  // hàm duy trì sự kiện lắng nghe lệnh từ Node-red
 }

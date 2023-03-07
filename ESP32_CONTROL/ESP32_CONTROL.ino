@@ -1,14 +1,14 @@
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <PubSubClient.h>
 #include <WiFiClient.h>
-#include <DHT.h>
 
-
-#define NOTI_LED_PIN 2  // don't fix define. don't use D4 and D3
-#define IN1_PIN 13      // D7
-#define IN2_PIN 12      // D6
-#define DOAM_PIN A0     // A0
-#define DHT_PIN 5       // D1
+// only input 35,34,39,36
+#define NOTI_LED_PIN 2      // don't fix define. don't use D2, TX0 and RX0
+#define BTN_PUM32_PIN 26    // G26
+#define BTN_LED32_PIN 27    // G27
+#define BTN_PUM8266_PIN 14  // G14
+#define BTN_CHANNEL_PIN 12  // G12
+#define LED_CHANNEL_PIN 13  // G13
 
 
 WiFiClient client;
@@ -19,72 +19,79 @@ const char *ssid = "NTGD";
 const char *pass = "112233445566";
 const char *mqttserver = "192.168.1.15";  // ip laptop
 const int mqttport = 1883;
-const char *mqttid = "pump";
-const char *toppicsub = "S-ESP8266-PUMP";
-const char *toppicpub = "P-ESP8266-PUMP";
+const char *mqttid = "control";
+const char *toppicsub = "S-ESP32-CONTROL";
+const char *toppicpub = "P-ESP32-CONTROL";
 
 unsigned long old_time_report = millis();
 unsigned long delay_time_report = 5;  // 5s
 
-float doam = 0;
-float nhietdo = 0;
-int buffer_bom = 0;
-int doam_dat = 0;
-
 String buffer_data_tu_nodered = "";
-String buffer_nhietdo = "";
-String buffer_doam = "";
-
+int tt_bom32 = 0;
+int tt_den32 = 0;
+int tt_bom8266 = 0;
+int is_auto = 1;
 
 //==================
-//  SETUP DHT
+// SETUP Interrupt : ngắt phát hiện nút nhấn
 //==================
-DHT dht(DHT_PIN, DHT11);
 
-void setupDHT() {
-  dht.begin();
-  Serial.println("setup DHT done!");
+void IRAM_ATTR xuly_led32() {
+  if (is_auto)
+    return;
+  tt_den32 = !tt_den32;
+  Serial.println("led32:" + tt_den32);
 }
 
-void layGiaTriTuDHT() {
-  doam = dht.readHumidity();
-  nhietdo = dht.readTemperature();
-  doam_dat = analogRead(DOAM_PIN);
-  // neu nan thi set ve 0
-  // nếu trả về là nan (00.0): báo thiết bị nối sai dây hoặc bị lỗi
-  // nêu đúng dữ liệu sẽ trả về 23.7 và 70.0 (23.7 độ C và độ ẩm 70% )
-  if (isnan(doam) || isnan(nhietdo)) {
-    buffer_nhietdo = "00.0";
-    buffer_doam = "00.0";
+void IRAM_ATTR xuly_bom32() {
+  if (is_auto)
     return;
-  }
+  tt_bom32 = !tt_bom32;
+  Serial.println("bom32:" + tt_bom32);
+}
 
-  buffer_nhietdo = String(nhietdo);
-  buffer_doam = String(doam);
+void IRAM_ATTR xuly_bom8266() {
+  if (is_auto)
+    return;
+  tt_bom8266 = !tt_bom8266;
+  Serial.println("tt_bom8266:" + tt_bom8266);
+}
+
+void IRAM_ATTR xuly_channel() {
+  is_auto = !is_auto;
+  delay(50);
+  digitalWrite(LED_CHANNEL_PIN, is_auto);
+}
+
+void setupInterrupt() {
+  pinMode(BTN_LED32_PIN, INPUT);
+  pinMode(BTN_PUM32_PIN, INPUT);
+  pinMode(BTN_PUM8266_PIN, INPUT);
+  pinMode(BTN_CHANNEL_PIN, INPUT);
+  attachInterrupt(digitalPinToInterrupt(BTN_LED32_PIN), xuly_led32, RISING);
+  attachInterrupt(digitalPinToInterrupt(BTN_PUM32_PIN), xuly_bom32, RISING);
+  attachInterrupt(digitalPinToInterrupt(BTN_PUM8266_PIN), xuly_bom8266, RISING);
+  attachInterrupt(digitalPinToInterrupt(BTN_CHANNEL_PIN), xuly_channel, RISING);
+  Serial.println("setup Interrupt done!");
 }
 
 //===========
 // MQTT
 //===========
 void xuLyLenhTuNodeRed(String cmd) {
-  // pump
-  if (cmd == "open8266") {
-    digitalWrite(IN1_PIN, HIGH);
-    digitalWrite(IN2_PIN, LOW);
-    buffer_bom = 10;
-    Serial.println("open pump");  // debug
+  if (cmd == "auto") {
+    is_auto = 1;
+    digitalWrite(LED_CHANNEL_PIN, HIGH);
     return;
   }
 
-  if (cmd == "close8266") {
-    digitalWrite(IN1_PIN, LOW);
-    digitalWrite(IN2_PIN, LOW);
-    buffer_bom = 0;
-    Serial.println("close pump");  // debug
+  // xử lý lênh khi yêu cầu thay đổi chế độ thành thủ công(manual)
+  if (cmd == "manual") {
+    is_auto = 0;
+    digitalWrite(LED_CHANNEL_PIN, LOW);
     return;
   }
 }
-
 
 // hàm lắng nghe sự kiện từ server gửi xuống
 void callback(char *topic, byte *payload, unsigned int length) {
@@ -116,26 +123,31 @@ bool guiDataLenNodered(String data_gui_nodered) {
 // reportMQTT
 void reportReadings() {
 
+  bool led_channel = digitalRead(LED_CHANNEL_PIN);
   String dataGuiNodeRed = "{";
 
-  dataGuiNodeRed += "\"dataAuto\":";
+  dataGuiNodeRed += "\"dataManual\":";
   dataGuiNodeRed += String(1);
   dataGuiNodeRed += ",";
 
+  dataGuiNodeRed += "\"led\":";
+  dataGuiNodeRed += String(led_channel);
+  dataGuiNodeRed += ",";
+
+  dataGuiNodeRed += "\"bom32\":";
+  dataGuiNodeRed += String(tt_bom32);
+  dataGuiNodeRed += ",";
+
+  dataGuiNodeRed += "\"den32\":";
+  dataGuiNodeRed += String(tt_den32);
+  dataGuiNodeRed += ",";
+
   dataGuiNodeRed += "\"bom8266\":";
-  dataGuiNodeRed += String(buffer_bom);
+  dataGuiNodeRed += String(tt_bom8266);
   dataGuiNodeRed += ",";
 
-  dataGuiNodeRed += "\"dat8266\":";
-  dataGuiNodeRed += String(doam_dat);
-  dataGuiNodeRed += ",";
-
-  dataGuiNodeRed += "\"nd8266\":";
-  dataGuiNodeRed += String(buffer_nhietdo);
-  dataGuiNodeRed += ",";
-
-  dataGuiNodeRed += "\"da8266\":";
-  dataGuiNodeRed += String(buffer_doam);
+  dataGuiNodeRed += "\"channel\":";
+  dataGuiNodeRed += String(is_auto);
   dataGuiNodeRed += ",";
 
   unsigned long now = millis();
@@ -202,14 +214,10 @@ void loopSendReport() {
 
 void setup() {
   Serial.begin(115200);
-  pinMode(IN1_PIN, OUTPUT);
-  pinMode(IN2_PIN, OUTPUT);
   pinMode(NOTI_LED_PIN, OUTPUT);
-  pinMode(DOAM_PIN, INPUT);
-
-  digitalWrite(IN1_PIN, LOW);
-  digitalWrite(IN2_PIN, LOW);
+  pinMode(LED_CHANNEL_PIN, OUTPUT);
   digitalWrite(NOTI_LED_PIN, LOW);
+  digitalWrite(LED_CHANNEL_PIN, LOW);
 
   setupWifi();
   delay(50);
@@ -217,13 +225,11 @@ void setup() {
   setupMQTT();
   delay(50);
 
-  setupDHT();
+  setupInterrupt();
   delay(50);
 }
 
 void loop() {
-  layGiaTriTuDHT();
-  
   loopSendReport();
   mqtt_client.loop();  // hàm duy trì sự kiện lắng nghe lệnh từ Node-red
 }
