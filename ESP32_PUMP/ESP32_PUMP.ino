@@ -10,6 +10,7 @@
 #define DOAM_PIN 5      // D5
 #define DHT_PIN 4       // D4
 #define DEN_PIN 25      // D25
+#define AS_PIN 21       // D21
 // +5V (L289) ->  VIN (ESP)
 // GND (L289) ->  GND (ESP)
 
@@ -34,6 +35,7 @@ float nhietdo = 0;
 int buffer_bom = 0;
 int buffer_den = 0;
 int doam_dat = 0;
+int as = 0;
 
 String buffer_data_tu_nodered = "";
 String buffer_nhietdo = "";
@@ -54,6 +56,7 @@ void layGiaTriTuDHT() {
   doam = dht.readHumidity();
   nhietdo = dht.readTemperature();
   doam_dat = analogRead(DOAM_PIN);
+  as = digitalRead(AS_PIN);
   // neu nan thi set ve 0
   // nếu trả về là nan (00.0): báo thiết bị nối sai dây hoặc bị lỗi
   // nêu đúng dữ liệu sẽ trả về 23.7 và 70.0 (23.7 độ C và độ ẩm 70% )
@@ -156,6 +159,10 @@ void reportReadings() {
   dataGuiNodeRed += String(buffer_doam);
   dataGuiNodeRed += ",";
 
+  dataGuiNodeRed += "\"as32\":";
+  dataGuiNodeRed += String(as);
+  dataGuiNodeRed += ",";
+
   dataGuiNodeRed += "\"den32\":";
   dataGuiNodeRed += String(buffer_den);
   dataGuiNodeRed += ",";
@@ -229,6 +236,7 @@ void setup() {
   pinMode(NOTI_LED_PIN, OUTPUT);
   pinMode(DEN_PIN, OUTPUT);
   pinMode(DOAM_PIN, INPUT);
+  pinMode(AS_PIN, INPUT);
 
   digitalWrite(IN3_PIN, LOW);
   digitalWrite(IN4_PIN, LOW);

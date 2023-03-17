@@ -9,7 +9,8 @@
 #define BTN_PUM8266_PIN 14  // G14
 #define BTN_CHANNEL_PIN 12  // G12
 #define LED_CHANNEL_PIN 13  // G13
-
+// 5V (tổ ong hoặc nguồn 5V) nối chân 5V
+// GND (tổ ong hoặc nguồn 5V) nối chân GND
 
 WiFiClient client;
 PubSubClient mqtt_client(client);

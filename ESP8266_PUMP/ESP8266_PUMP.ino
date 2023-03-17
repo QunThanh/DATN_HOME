@@ -9,7 +9,8 @@
 #define IN2_PIN 12      // D6
 #define DOAM_PIN A0     // A0
 #define DHT_PIN 5       // D1
-
+// +5V (L289) ->  VIN (ESP)
+// GND (L289) ->  GND (ESP)
 
 WiFiClient client;
 PubSubClient mqtt_client(client);
