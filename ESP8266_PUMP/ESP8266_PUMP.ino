@@ -16,9 +16,9 @@ WiFiClient client;
 PubSubClient mqtt_client(client);
 
 //============
-const char *ssid = "NTGD";
-const char *pass = "112233445566";
-const char *mqttserver = "192.168.1.15";  // ip laptop
+const char *ssid = "Iphone 12s";
+const char *pass = "hung123456";
+const char *mqttserver = "172.20.10.2";  // ip laptop 
 const int mqttport = 1883;
 const char *mqttid = "pump";
 const char *toppicsub = "S-ESP8266-PUMP";

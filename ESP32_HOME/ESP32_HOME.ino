@@ -1,30 +1,28 @@
-#include <SPI.h>
 #include <WiFi.h>
 #include <DHT.h>
 #include <PubSubClient.h>
 #include <WiFiClient.h>
 
-#define CB_GAS_PIN              33         
-#define DHT_PIN                 25         
-#define NUT_LED_PHAI_PKHACH     26         
-#define NUT_LED_TRAI_PKHACH     26 //     
+#define CB_GAS_PIN              39        
+#define DHT_PIN                 35         
+#define NUT_LED_PHAI_PKHACH     13         
+#define NUT_LED_TRAI_PKHACH     12      
+#define NUT_QUAT_PKHACH         14 
 #define NUT_LED_PBEP            27
-#define NUT_QUAT_PKHACH         13 
-#define NUT_QUAT_PBEP           13 //
-#define LED_PHAI_PKHACH         32    
-#define LED_TRAI_PKHACH         32 // 
-#define LED_PBEP                14        
-#define QUAT_PKHACH             12         
-#define QUAT_PBEP               12 //  
-
+#define NUT_QUAT_PBEP           26 
+#define LED_PHAI_PKHACH         25    
+#define LED_TRAI_PKHACH         33  
+#define QUAT_PKHACH             32         
+#define LED_PBEP                4        
+#define QUAT_PBEP               16   
 
 
 WiFiClient client;
 PubSubClient mqtt_client(client);
 
-const char *ssid = "NTGD";   // tên mạng mà máy tính kết nối
-const char *pass = "112233445566";              // mật khẩu mạng
-const char *mqttserver = "192.168.1.7";   // địa chỉ mạng của máy tính
+const char* ssid = "1234";
+const char* pass = "12345678c";
+const char *mqttserver = "192.168.55.217"; // ip laptop
 const int mqttport = 1883;
 const char *mqttid = "home";
 const char *toppicsub = "S-ESP-HOME";            // gói tin đăng ký với server để lấy tin từ server
@@ -34,11 +32,12 @@ unsigned long old_time_report = millis();
 unsigned long delay_time_report = 5;       // 5s 
 
 // var interrupt
-bool nhan_nut_led_phai_pkhach = false;
-bool nhan_nut_led_trai_pkhach = false;
-bool nhan_nut_quat_pkhach = false;
-bool nhan_nut_led_pbep = false;
-bool nhan_nut_quat_pbep = false;
+bool nhanLedPhai = false;
+bool nhanLedTrai = false;
+bool nhanQuatPK = false;
+bool nhanLedBep = false;
+bool nhanQuatBep = false;
+bool running_interrupt =  false;
 
 //mqtt
 String buffer_data_tu_server = "";         // dữ liệu tạm thời lấy từ node-red
@@ -50,11 +49,12 @@ String str_nhietdo = "00.0";
 String str_doam = "00.0";
 
 // var handle button
-uint8_t tt_led_phai_pkhach = 0;
-uint8_t tt_led_trai_pkhach = 0;
-uint8_t tt_quat_pkhach = 0;
-uint8_t tt_led_pbep = 0;
-uint8_t tt_quat_pbep = 0;
+uint8_t ttLedPhaiPK = 0;
+uint8_t ttLedTraiPK = 0;
+uint8_t ttQuatPK = 0;
+uint8_t ttLedBep = 0;
+uint8_t ttQuatBep = 0;
+bool temp_IO_value = 0;
 
 //==================
 //  SETUP DHT
@@ -92,42 +92,53 @@ void layGiaTriTuDHT()
 // p.khach
 void IRAM_ATTR xuly_nut_led_phai_pkhach()
 {
-  nhan_nut_led_phai_pkhach = true;
+  if (running_interrupt) return;
+  running_interrupt = true;  
+  nhanLedPhai = true;
 }
 void IRAM_ATTR xuly_nut_led_trai_pkhach()
 {
-  nhan_nut_led_trai_pkhach = true;
+  if (running_interrupt) return;
+  running_interrupt = true;  
+  nhanLedTrai = true;
+
 }
 void IRAM_ATTR xuly_nut_quat_pkhach()
 {
-  nhan_nut_quat_pkhach = true;
+  if (running_interrupt) return;
+  running_interrupt = true;  
+  nhanQuatPK = true;
 }
 
 // p.bep
 void IRAM_ATTR xuly_nut_led_pbep()
 {
-  nhan_nut_led_pbep = true;
+  if (running_interrupt) return;
+  running_interrupt = true;  
+  nhanLedBep = true;
 }
 void IRAM_ATTR xuly_nut_quat_pbep()
 {
-  nhan_nut_quat_pbep = true;
+  if (running_interrupt) return;
+  running_interrupt = true;  
+  nhanQuatBep = true;
 }
 
 void setupInterrupt()
 {
   // p.khach
-  pinMode(NUT_LED_PHAI_PKHACH, INPUT);
-  pinMode(NUT_LED_TRAI_PKHACH, INPUT);
-  pinMode(NUT_QUAT_PKHACH, INPUT);
-  attachInterrupt(digitalPinToInterrupt(NUT_LED_PHAI_PKHACH), xuly_nut_led_phai_pkhach, RISING);
-  attachInterrupt(digitalPinToInterrupt(NUT_LED_TRAI_PKHACH), xuly_nut_led_trai_pkhach, RISING);
-  attachInterrupt(digitalPinToInterrupt(NUT_QUAT_PKHACH), xuly_nut_quat_pkhach, RISING);
+  pinMode(NUT_LED_PHAI_PKHACH, INPUT_PULLUP);
+  pinMode(NUT_LED_TRAI_PKHACH, INPUT_PULLUP);
+  pinMode(NUT_QUAT_PKHACH, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(NUT_LED_PHAI_PKHACH), xuly_nut_led_phai_pkhach, FALLING); //RISING
+  attachInterrupt(digitalPinToInterrupt(NUT_LED_TRAI_PKHACH), xuly_nut_led_trai_pkhach, FALLING);
+  attachInterrupt(digitalPinToInterrupt(NUT_QUAT_PKHACH), xuly_nut_quat_pkhach, FALLING);
   
   //p.bep
-  pinMode(NUT_LED_PBEP, INPUT);
-  pinMode(NUT_QUAT_PBEP, INPUT);
-  attachInterrupt(digitalPinToInterrupt(NUT_LED_PBEP), xuly_nut_led_pbep, RISING);
-  attachInterrupt(digitalPinToInterrupt(NUT_QUAT_PBEP), xuly_nut_quat_pbep, RISING);
+  pinMode(NUT_LED_PBEP, INPUT_PULLUP);
+  pinMode(NUT_QUAT_PBEP, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(NUT_LED_PBEP), xuly_nut_led_pbep, FALLING);
+  attachInterrupt(digitalPinToInterrupt(NUT_QUAT_PBEP), xuly_nut_quat_pbep, FALLING);
   Serial.println("setup Interrupt done!");
 }
 
@@ -137,60 +148,66 @@ void setupInterrupt()
 void xuLyNutNhan()
 {
   // kiểm tra có nút nào nhấn chưa?  nếu rồi thì xuống dưới thực hiện không thì bỏ qua hàm này
-  if (!nhan_nut_led_phai_pkhach && !nhan_nut_led_trai_pkhach && !nhan_nut_quat_pkhach && !nhan_nut_led_pbep && !nhan_nut_quat_pbep)
+  if (!nhanLedPhai && !nhanLedTrai && !nhanQuatPK && !nhanLedBep && !nhanQuatBep)
     return;
-  
+  running_interrupt = false;
   // led phai p.khach
-  if (nhan_nut_led_phai_pkhach)
+  if (nhanLedPhai)
   {
-    tt_led_phai_pkhach = digitalRead(LED_PHAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
-    digitalWrite(LED_PHAI_PKHACH, !tt_led_phai_pkhach);        // đảo trạng thái máy bơm
+    temp_value = digitalRead(LED_PHAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
+    ttLedPhaiPK = !temp_value;
+    digitalWrite(LED_PHAI_PKHACH, ttLedPhaiPK);        // đảo trạng thái máy bơm
     
-    tt_led_phai_pkhach = !tt_led_phai_pkhach;
-    nhan_nut_led_phai_pkhach = false;                  // reset trạng thái nút nhấn
+    Serial.println("ledphai");
+    nhanLedPhai = false;                  // reset trạng thái nút nhấn
     return;
   }
 
   // led trai p.khach
-  if (nhan_nut_led_trai_pkhach)
+  if (nhanLedTrai)
   {
-    tt_led_trai_pkhach = digitalRead(LED_TRAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
-    digitalWrite(LED_TRAI_PKHACH, !tt_led_trai_pkhach);        // đảo trạng thái máy bơm
+    temp_value = digitalRead(LED_TRAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
+    ttLedTraiPK = !temp_value;
+    digitalWrite(LED_TRAI_PKHACH, ttLedTraiPK);        // đảo trạng thái máy bơm
     
-    tt_led_trai_pkhach = !tt_led_trai_pkhach;
-    nhan_nut_led_trai_pkhach = false;                  // reset trạng thái nút nhấn
+    Serial.println("ledtrai");
+    nhanLedTrai = false;                  // reset trạng thái nút nhấn
     return;
   }  
 
   // quat p.khach  
-  if (nhan_nut_quat_pkhach)
+  if (nhanQuatPK)
   {
-    tt_quat_pkhach = digitalRead(QUAT_PKHACH);           // đọc trạng thái của led hiện tại.
-    digitalWrite(QUAT_PKHACH, !tt_quat_pkhach);          // đảo trạng thái led
+    temp_value = digitalRead(QUAT_PKHACH);           // đọc trạng thái của led hiện tại.
+    ttQuatPK = !temp_value;
+    digitalWrite(QUAT_PKHACH, ttQuatPK);          // đảo trạng thái led
     
-    tt_quat_pkhach = !tt_quat_pkhach;
-    nhan_nut_quat_pkhach = false;                   // reset trạng thái nút nhấn
+    Serial.println("quatkhach"); 
+    nhanQuatPK = false;                   // reset trạng thái nút nhấn
     return;
   }
 
   // led p.bep
-  if (nhan_nut_led_pbep)
+  if (nhanLedBep)
   {
-    tt_led_pbep = digitalRead(LED_PBEP);           // đọc trạng thái của led hiện tại.
-    digitalWrite(LED_PBEP, !tt_led_pbep);          // đảo trạng thái led
-    tt_led_pbep = !tt_led_pbep;
-    nhan_nut_led_pbep = false;                   // reset trạng thái nút nhấn
+    temp_value = digitalRead(LED_PBEP);           // đọc trạng thái của led hiện tại.
+    ttLedBep = !temp_value;
+    digitalWrite(LED_PBEP, ttLedBep);          // đảo trạng thái led
+
+    Serial.println("ledbep"); 
+    nhanLedBep = false;                   // reset trạng thái nút nhấn
     return;
   }
 
   // quat p.bep  
-  if (nhan_nut_quat_pbep)
+  if (nhanQuatBep)
   {
-    tt_quat_pbep = digitalRead(QUAT_PBEP);           // đọc trạng thái của led hiện tại.
-    digitalWrite(QUAT_PBEP, !tt_quat_pbep);          // đảo trạng thái led
+    temp_value = digitalRead(QUAT_PBEP);           // đọc trạng thái của led hiện tại.
+    ttQuatBep = !temp_value;
+    digitalWrite(QUAT_PBEP, ttQuatBep);          // đảo trạng thái led
     
-    tt_quat_pbep = !tt_quat_pbep;
-    nhan_nut_quat_pbep = false;                   // reset trạng thái nút nhấn
+    Serial.println("quatbep"); 
+    nhanQuatBep = false;                   // reset trạng thái nút nhấn
     return;
   }  
 
@@ -213,81 +230,81 @@ void xuLyLenhTuNodeRed(String cmd)
   // }
 
   // Led phai p.khach
-  if (cmd == "onledphaikhach")
+  if (cmd == "onlppk")
   {
     digitalWrite(LED_PHAI_PKHACH, HIGH);
-    tt_led_phai_pkhach = 1;
+    ttLedPhaiPK = 1;
     Serial.println("." + cmd + ".");      // debug
     return;
   }
-  if (cmd == "offledphaikhach")
+  if (cmd == "offlppk")
   {
     digitalWrite(LED_PHAI_PKHACH, LOW);
-    tt_led_phai_pkhach = 0;
+    ttLedPhaiPK = 0;
     Serial.println("." + cmd +".");      // debug
     return;
   }
 
   // Led trai p.khach
-  if (cmd == "onledtraikhach")
+  if (cmd == "onltpk")
   {
     digitalWrite(LED_TRAI_PKHACH, HIGH);
-    tt_led_trai_pkhach = 1;
+    ttLedTraiPK = 1;
     Serial.println("." + cmd + ".");      // debug
     return;
   }
-  if (cmd == "offledtraikhach")
+  if (cmd == "offltpk")
   {
     digitalWrite(LED_TRAI_PKHACH, LOW);
-    tt_led_trai_pkhach = 0;
+    ttLedTraiPK = 0;
     Serial.println("." + cmd +".");      // debug
     return;
   }
 
   // quat p.khach
-  if (cmd == "onquatkhach")
+  if (cmd == "onqpk")
   {
     digitalWrite(QUAT_PKHACH, HIGH);
-    tt_quat_pkhach = 1;
+    ttQuatPK = 1;
     Serial.println("." + cmd +".");      // debug
     return;
   }
-  if (cmd == "offquatkhach")
+  if (cmd == "offqpk")
   {
     digitalWrite(QUAT_PKHACH, LOW);
-    tt_quat_pkhach = 0;
+    ttQuatPK = 0;
     Serial.println("." + cmd +".");      // debug
     return;
   }
 
   // led p.bep
-  if (cmd == "onledbep")
+  if (cmd == "onlpb")
   {
     digitalWrite(LED_PBEP, HIGH);
-    tt_led_pbep = 1;
+    ttLedBep = 1;
     Serial.println("." + cmd +".");      // debug
     return;
   }
-  if (cmd == "offledbep")
+  if (cmd == "offlpb")
   {
     digitalWrite(LED_PBEP, LOW);
-    tt_led_pbep = 0;
+    ttLedBep = 0;
     Serial.println("." + cmd +".");      // debug
     return;
   }
 
   // quat p.bep
-  if (cmd == "onquatbep")
+  if (cmd == "onqpb")
   {
     digitalWrite(QUAT_PBEP, HIGH);
-    tt_quat_pbep = 1;
+    ttQuatBep = 1;
     Serial.println("." + cmd +".");      // debug
     return;
   }
-  if (cmd == "offquatbep")
+  if (cmd == "offqpb")
   {
     digitalWrite(QUAT_PBEP, LOW);
-    tt_quat_pbep = 0;
+    ttQuatBep = 0;
     Serial.println("." + cmd +".");      // debug
     return;
   }  
@@ -321,14 +338,14 @@ void reportReadings()
     String dataGuiServer = "{";
 
     // nhiet do
-    dataGuiServer += "\"nd\":";
+    dataGuiServer += "\"nd\": \"";
     dataGuiServer += str_nhietdo;
-    dataGuiServer += ",";
+    dataGuiServer += "\",";
 
     // do am
-    dataGuiServer += "\"da\":";
+    dataGuiServer += "\"da\":\"";
     dataGuiServer += str_doam;
-    dataGuiServer += ",";
+    dataGuiServer += "\",";
 
     //gas
     dataGuiServer += "\"g\":";
@@ -337,27 +354,27 @@ void reportReadings()
 
     //led phai p.khach
     dataGuiServer += "\"lppk\":";
-    dataGuiServer += String(tt_led_phai_pkhach);
+    dataGuiServer += String(ttLedPhaiPK);
     dataGuiServer += ",";
 
     //led trai p.khach
     dataGuiServer += "\"ltpk\":";
-    dataGuiServer += String(tt_led_trai_pkhach);
+    dataGuiServer += String(ttLedTraiPK);
     dataGuiServer += ",";
     
     //quat p.khach
     dataGuiServer += "\"qpk\":";
-    dataGuiServer += String(tt_quat_pkhach);
+    dataGuiServer += String(ttQuatPK);
     dataGuiServer += ",";
 
     //led p.bep
     dataGuiServer += "\"lpb\":";
-    dataGuiServer += String(tt_led_pbep);
+    dataGuiServer += String(ttLedBep);
     dataGuiServer += ",";
 
     //quat p.bep
     dataGuiServer += "\"qpb\":";
-    dataGuiServer += String(tt_quat_pbep);
+    dataGuiServer += String(ttQuatBep);
     dataGuiServer += ",";
 
     //ip

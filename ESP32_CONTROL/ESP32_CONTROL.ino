@@ -7,7 +7,7 @@
 #define BTN_PUM32_PIN 26    // G26
 #define BTN_LED32_PIN 27    // G27
 #define BTN_PUM8266_PIN 14  // G14
-#define BTN_CHANNEL_PIN 12  // G12
+#define BTN_CHANNEL_PIN 25  // G25
 #define LED_CHANNEL_PIN 13  // G13
 // 5V (tổ ong hoặc nguồn 5V) nối chân 5V
 // GND (tổ ong hoặc nguồn 5V) nối chân GND
@@ -16,16 +16,16 @@ WiFiClient client;
 PubSubClient mqtt_client(client);
 
 //============
-const char *ssid = "NTGD";
-const char *pass = "112233445566";
-const char *mqttserver = "192.168.1.15";  // ip laptop
+const char *ssid = "Iphone 12s";
+const char *pass = "hung123456";
+const char *mqttserver = "172.20.10.2";  // ip laptop
 const int mqttport = 1883;
 const char *mqttid = "control";
 const char *toppicsub = "S-ESP32-CONTROL";
 const char *toppicpub = "P-ESP32-CONTROL";
 
 unsigned long old_time_report = millis();
-unsigned long delay_time_report = 5;  // 5s
+unsigned long delay_time_report = 2;  // 5s
 
 String buffer_data_tu_nodered = "";
 int tt_bom32 = 0;
@@ -41,38 +41,37 @@ void IRAM_ATTR xuly_led32() {
   if (is_auto)
     return;
   tt_den32 = !tt_den32;
-  Serial.println("led32:" + tt_den32);
+  Serial.println("led32");
 }
 
 void IRAM_ATTR xuly_bom32() {
   if (is_auto)
     return;
   tt_bom32 = !tt_bom32;
-  Serial.println("bom32:" + tt_bom32);
+  Serial.println("32");
 }
 
 void IRAM_ATTR xuly_bom8266() {
   if (is_auto)
     return;
   tt_bom8266 = !tt_bom8266;
-  Serial.println("tt_bom8266:" + tt_bom8266);
+  Serial.println("8266");
 }
 
 void IRAM_ATTR xuly_channel() {
   is_auto = !is_auto;
-  delay(50);
   digitalWrite(LED_CHANNEL_PIN, is_auto);
 }
 
 void setupInterrupt() {
-  pinMode(BTN_LED32_PIN, INPUT);
-  pinMode(BTN_PUM32_PIN, INPUT);
-  pinMode(BTN_PUM8266_PIN, INPUT);
-  pinMode(BTN_CHANNEL_PIN, INPUT);
-  attachInterrupt(digitalPinToInterrupt(BTN_LED32_PIN), xuly_led32, RISING);
-  attachInterrupt(digitalPinToInterrupt(BTN_PUM32_PIN), xuly_bom32, RISING);
-  attachInterrupt(digitalPinToInterrupt(BTN_PUM8266_PIN), xuly_bom8266, RISING);
-  attachInterrupt(digitalPinToInterrupt(BTN_CHANNEL_PIN), xuly_channel, RISING);
+  pinMode(BTN_LED32_PIN, INPUT_PULLUP);
+  pinMode(BTN_PUM32_PIN, INPUT_PULLUP);
+  pinMode(BTN_PUM8266_PIN, INPUT_PULLUP);
+  pinMode(BTN_CHANNEL_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BTN_LED32_PIN), xuly_led32, FALLING);
+  attachInterrupt(digitalPinToInterrupt(BTN_PUM32_PIN), xuly_bom32, FALLING);
+  attachInterrupt(digitalPinToInterrupt(BTN_PUM8266_PIN), xuly_bom8266, FALLING);
+  attachInterrupt(digitalPinToInterrupt(BTN_CHANNEL_PIN), xuly_channel, FALLING);
   Serial.println("setup Interrupt done!");
 }
 
@@ -83,6 +82,7 @@ void xuLyLenhTuNodeRed(String cmd) {
   if (cmd == "auto") {
     is_auto = 1;
     digitalWrite(LED_CHANNEL_PIN, HIGH);
+    reportReadings();
     return;
   }
 
@@ -90,6 +90,43 @@ void xuLyLenhTuNodeRed(String cmd) {
   if (cmd == "manual") {
     is_auto = 0;
     digitalWrite(LED_CHANNEL_PIN, LOW);
+    reportReadings();
+    return;
+  }
+
+  if (cmd == "open32") {
+    tt_bom32 = 1;
+    reportReadings();
+    return;
+  }
+
+  if (cmd == "close32") {
+    tt_bom32 = 0;
+    reportReadings();
+    return;
+  }
+
+  if (cmd == "ledon32") {
+    tt_den32 = 1;
+    reportReadings();
+    return;
+  }
+
+  if (cmd == "ledoff32") {
+    tt_den32 = 0;
+    reportReadings();
+    return;
+  }
+
+  if (cmd == "open8266") {
+    tt_bom8266 = 1;
+    reportReadings();
+    return;
+  }
+
+  if (cmd == "close8266") {
+    tt_bom8266 = 0;
+    reportReadings();
     return;
   }
 }
@@ -135,16 +172,18 @@ void reportReadings() {
   dataGuiNodeRed += String(led_channel);
   dataGuiNodeRed += ",";
 
+  int tempBom32 = tt_bom32 ? 10 : 0;
   dataGuiNodeRed += "\"bom32\":";
-  dataGuiNodeRed += String(tt_bom32);
+  dataGuiNodeRed += String(tempBom32);
   dataGuiNodeRed += ",";
 
   dataGuiNodeRed += "\"den32\":";
   dataGuiNodeRed += String(tt_den32);
   dataGuiNodeRed += ",";
 
+  int tempBom8266 = tt_bom8266 ? 10 : 0;
   dataGuiNodeRed += "\"bom8266\":";
-  dataGuiNodeRed += String(tt_bom8266);
+  dataGuiNodeRed += String(tempBom8266);
   dataGuiNodeRed += ",";
 
   dataGuiNodeRed += "\"channel\":";
@@ -218,7 +257,7 @@ void setup() {
   pinMode(NOTI_LED_PIN, OUTPUT);
   pinMode(LED_CHANNEL_PIN, OUTPUT);
   digitalWrite(NOTI_LED_PIN, LOW);
-  digitalWrite(LED_CHANNEL_PIN, LOW);
+  digitalWrite(LED_CHANNEL_PIN, HIGH);
 
   setupWifi();
   delay(50);

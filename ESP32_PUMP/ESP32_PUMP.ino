@@ -7,10 +7,10 @@
 #define NOTI_LED_PIN 2  // don't fix define. don't use D2, TX0 and RX0
 #define IN3_PIN 13      // D13
 #define IN4_PIN 12      // D12
-#define DOAM_PIN 5      // D5
+#define DOAM_PIN 34     // D34
 #define DHT_PIN 4       // D4
 #define DEN_PIN 25      // D25
-#define AS_PIN 21       // D21
+#define AS_PIN 35       // D35
 // +5V (L289) ->  VIN (ESP)
 // GND (L289) ->  GND (ESP)
 
@@ -19,11 +19,11 @@ WiFiClient client;
 PubSubClient mqtt_client(client);
 
 //============
-const char *ssid = "NTGD";
-const char *pass = "112233445566";
-const char *mqttserver = "192.168.1.15";  // ip laptop
+const char *ssid = "Iphone 12s";
+const char *pass = "hung123456";
+const char *mqttserver = "172.20.10.2";  // ip laptop
 const int mqttport = 1883;
-const char *mqttid = "pump";
+const char *mqttid = "pump32";
 const char *toppicsub = "S-ESP32-PUMP";
 const char *toppicpub = "P-ESP32-PUMP";
 
@@ -178,7 +178,7 @@ void reportReadings() {
 
   // Publish to MQTT
   boolean success = guiDataLenNodered(dataGuiNodeRed);
-
+  dataGuiNodeRed = "";
   // Error
   if (!success) {
     Serial.println("Failed to publish to MQTT");
