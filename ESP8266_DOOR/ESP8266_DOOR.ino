@@ -5,22 +5,24 @@
 #include <PubSubClient.h>
 #include <WiFiClient.h>
 
-#define LCD_I2C_ADDR          0x27     
+#define LCD_I2C_ADDR          0x25     
 #define LCD_I2C_NUM_COL       16   
 #define LCD_I2C_NUM_ROW       2  
 // SDA 4 (D2)
 // SCL 5 (D1)
 #include "my_lcd.h"
 
-#define SERVO_PIN             2        // D4
+#define SERVO_PIN             2        //d4
 
-// SS/SDA     2  (D4)
+// SS/SDA     16 (D0)
 // SCK        14 (D5)
 // MOSI/SCL   13 (D7)
 // MISO       12 (D6)
-// RST        0  (D3)
-#define RST_PIN               0         // D3
-#define SS_PIN                16        // D0
+// RST        16  (D0)
+#define RST_PIN               16         // D0
+#define SS_PIN                15         //d8
+
+#define PIR_PIN               0        // D0
 
 
 WiFiClient client;
@@ -29,9 +31,9 @@ MFRC522 rfid(SS_PIN, RST_PIN);
 Servo servo;
 
 //============
-const char* ssid = "NTGD";
-const char* pass = "112233445566";
-const char *mqttserver = "192.168.1.15"; // ip laptop
+const char* ssid = "1234";
+const char* pass = "12345678c";
+const char *mqttserver = "192.168.205.217"; // ip laptop
 const int mqttport = 1883;
 const char *mqttid = "gate";
 const char *toppicsub = "S-ESP-GATE";
@@ -142,6 +144,7 @@ bool guiDataIDLenNodered( String data_gui_nodered )
 // reportMQTT
 void reportReadings()
 {
+    int pir_value = digitalRead(PIR_PIN);
     String dataGuiNodeRed = "{";
 
     // last ID login 
@@ -157,6 +160,11 @@ void reportReadings()
     // servo deg
     dataGuiNodeRed += "\"deg\":";
     dataGuiNodeRed += String(servo.read());
+    dataGuiNodeRed += ",";
+
+    // pir
+    dataGuiNodeRed += "\"pir\":";
+    dataGuiNodeRed += String(pir_value);
     dataGuiNodeRed += ",";
 
     // general info
@@ -324,6 +332,7 @@ void loopLCD(){
 
 void setup() {
   Serial.begin(115200);
+  pinMode(PIR_PIN, INPUT);
   // pinMode(LED_PIN,OUTPUT);
   // digitalWrite(LED_PIN, LOW);
 

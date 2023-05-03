@@ -1,0 +1,2034 @@
+[
+    {
+        "id": "e15174c2ec535bb8",
+        "type": "aedes broker",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "dburl": "",
+        "usetls": false,
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2fd79954e307a6ad",
+        "type": "mqtt in",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "topic": "P-ESP-GATE",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a514943117bbaccb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 1220,
+        "wires": [
+            [
+                "c05b2b79e1f851b1",
+                "acaea2f417721f83"
+            ]
+        ]
+    },
+    {
+        "id": "fc660c53f076a656",
+        "type": "mqtt out",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "topic": "S-ESP-GATE",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a514943117bbaccb",
+        "x": 300,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "15e8e975abce875d",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "100",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "threshold;100",
+        "payloadType": "str",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "fc660c53f076a656"
+            ]
+        ]
+    },
+    {
+        "id": "e49b4e88ea778507",
+        "type": "mqtt in",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "topic": "P-ESP-HOME",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a514943117bbaccb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 1080,
+        "wires": [
+            [
+                "490ed58f77368b63",
+                "2740f50adca20d73"
+            ]
+        ]
+    },
+    {
+        "id": "67986ea9c6958783",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "open",
+        "payloadType": "str",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "fc660c53f076a656"
+            ]
+        ]
+    },
+    {
+        "id": "3915e92a781cd995",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "close",
+        "payloadType": "str",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "fc660c53f076a656"
+            ]
+        ]
+    },
+    {
+        "id": "f43a2947bb4ab072",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "wrong",
+        "payloadType": "str",
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "fc660c53f076a656"
+            ]
+        ]
+    },
+    {
+        "id": "8014b8be11b256e9",
+        "type": "mqtt in",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "topic": "P-ID-ESP-GATE",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a514943117bbaccb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 360,
+        "wires": [
+            [
+                "5dcd10a105ef0e28",
+                "c36ff5fc9ad8af50"
+            ]
+        ]
+    },
+    {
+        "id": "a27c6f2f9b1389c0",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "5dcd10a105ef0e28",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "trim String",
+        "func": "var statusString = \"\";\nmsg.ID = msg.payload.trim();\n\nstatusString += `id:${msg.ID}|`;\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "a27c6f2f9b1389c0",
+                "334a7348fe769b90"
+            ]
+        ]
+    },
+    {
+        "id": "5f51e126c42ce991",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "list ID",
+        "func": "var arrID =[\n    {\n        \"name\": \"Admin\",\n        \"id\":\"128 126 243 34\",\n    },\n]\n\nglobal.set(\"gl_arr_ID\", arrID);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "54f327770a3ab37b",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"chipID\":\"ESP-D8A27D93\",\"red_led\":0,\"green_led\":0,\"hum\":65,\"temp\":29.5,\"now\":\"952496\"}",
+        "payloadType": "json",
+        "x": 970,
+        "y": 180,
+        "wires": [
+            [
+                "5f51e126c42ce991"
+            ]
+        ]
+    },
+    {
+        "id": "d384f3064990a8cd",
+        "type": "mqtt out",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "topic": "S-ESP-GATE",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a514943117bbaccb",
+        "x": 900,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7bf2188e7e71eeaf",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a2a0cfcbce0fda52",
+        "type": "comment",
+        "z": "d04092592b4ca4c5",
+        "name": "GATE",
+        "info": "",
+        "x": 90,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "27713e94290d8664",
+        "type": "comment",
+        "z": "d04092592b4ca4c5",
+        "name": "HOME",
+        "info": "",
+        "x": 110,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "334a7348fe769b90",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "check & push and send ESP DOOR",
+        "func": "var date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nmsg.hour = hour;\nmsg.minute = minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n////////////\nvar arrLogin = global.get(\"gl_arr_login\") || [];\nvar arrID = global.get(\"gl_arr_ID\") || [];\n\n//check has id \nvar checkName = \"new ID\";\narrID.forEach(item=>{\n    if (item.id == msg.ID) \n    {\n        checkName = item.name;\n    }\n})\nmsg.checkName = checkName;\n\n//push\narrLogin.push({\n    \"time\": date,\n    \"name\": checkName != \"new ID\" ? checkName : \"new ID\",\n    \"id\": msg.ID,\n})\n\nglobal.set(\"gl_arr_login\",arrLogin);\nvar msg2={};\nvar msg3 = {};\n\nif (checkName != \"new ID\")\n{\n    msg2.payload = \"open\";\n    flow.set('fl_isOpen', true);\n    statusString += `push: ${msg.ID} (${checkName}).Wellcome Home`\n    node.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n    return [msg, msg2,null];\n}\n\nmsg2.payload = \"wrong\";\nmsg3.payload = \"close\";\nflow.set('fl_isOpen', false);\nstatusString += `push: ${msg.ID} (${checkName}). So can't enter`\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn [msg,msg2,msg3];",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 360,
+        "wires": [
+            [],
+            [
+                "d384f3064990a8cd",
+                "7bf2188e7e71eeaf"
+            ],
+            [
+                "16e1ba3eca4e7c39"
+            ]
+        ]
+    },
+    {
+        "id": "65e38abf570e4e61",
+        "type": "ui_table",
+        "z": "d04092592b4ca4c5",
+        "group": "ed26ce0b24e0b720",
+        "name": "LIST ID",
+        "order": 8,
+        "width": 7,
+        "height": 4,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 1240,
+        "y": 220,
+        "wires": [
+            [
+                "0cee751f852dc8f0",
+                "3931e44c2c6d8efc"
+            ]
+        ]
+    },
+    {
+        "id": "f9355d6db227505c",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "filter ID",
+        "func": "var arrID = global.get(\"gl_arr_ID\") || [];\n\nmsg.payload = arrID;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 220,
+        "wires": [
+            [
+                "65e38abf570e4e61"
+            ]
+        ]
+    },
+    {
+        "id": "098e5b1f03bd3c4d",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 970,
+        "y": 220,
+        "wires": [
+            [
+                "f9355d6db227505c"
+            ]
+        ]
+    },
+    {
+        "id": "f95eb02812bf0dd3",
+        "type": "comment",
+        "z": "d04092592b4ca4c5",
+        "name": "ID can open door",
+        "info": "",
+        "x": 1260,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "87f19436c5de250b",
+        "type": "comment",
+        "z": "d04092592b4ca4c5",
+        "name": "history ID login",
+        "info": "",
+        "x": 900,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "06284937d2de701b",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "list ID",
+        "func": "var arrLogin =[\n    // {\n    //     \"time\": \"\",\n    //     \"name\": \"Thanh\",\n    //     \"id\":\"154 114 118 128\",\n    // },\n]\n\nglobal.set(\"gl_arr_login\", arrLogin);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "567c3e7dab8b0772",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"chipID\":\"ESP-D8A27D93\",\"red_led\":0,\"green_led\":0,\"hum\":65,\"temp\":29.5,\"now\":\"952496\"}",
+        "payloadType": "json",
+        "x": 470,
+        "y": 180,
+        "wires": [
+            [
+                "06284937d2de701b"
+            ]
+        ]
+    },
+    {
+        "id": "5dc317e7da30d189",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "154 114 888 125",
+        "payloadType": "str",
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "5dcd10a105ef0e28",
+                "c36ff5fc9ad8af50"
+            ]
+        ]
+    },
+    {
+        "id": "04916f08b49ad6f0",
+        "type": "ui_table",
+        "z": "d04092592b4ca4c5",
+        "group": "ed26ce0b24e0b720",
+        "name": "ID LOGIN",
+        "order": 1,
+        "width": 7,
+        "height": 4,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "e12daac8ea862ba0"
+            ]
+        ]
+    },
+    {
+        "id": "c36ff5fc9ad8af50",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "show",
+        "func": "\n////////////\nvar arrLogin = global.get(\"gl_arr_login\") || [];\nmsg.payload = arrLogin;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 420,
+        "wires": [
+            [
+                "04916f08b49ad6f0"
+            ]
+        ]
+    },
+    {
+        "id": "e12daac8ea862ba0",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "get id",
+        "func": "var date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nmsg.hour = hour;\nmsg.minute = minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n//=============================================================\n\nvar selected = flow.get('fl_selected')||{}\nvar dataSelected = msg.payload;\n\n\nmsg.nameSelected = dataSelected.name;\nmsg.idSelected = dataSelected.id;\n\nselected.nameSelected = msg.nameSelected\nselected.idSelected = msg.idSelected\nflow.set('fl_selected',selected);\n\nstatusString += `${msg.idSelected} (${msg.nameSelected})`\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 420,
+        "wires": [
+            [
+                "8decca4b63c115b9"
+            ]
+        ]
+    },
+    {
+        "id": "1623d84f7c16e301",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "set name",
+        "func": "var date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nmsg.hour = hour;\nmsg.minute = minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n//=============================================================\nvar selected = flow.get('fl_selected')||{}\n\n//set name\nvar name = msg.payload;\nselected.name = name;\n\nflow.set('fl_selected',selected);\n\nstatusString += name;\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1200,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8decca4b63c115b9",
+        "type": "ui_text",
+        "z": "d04092592b4ca4c5",
+        "group": "ed26ce0b24e0b720",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "ID đang chọn: ",
+        "format": "{{msg.idSelected}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 700,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "9b804a01983feb6a",
+        "type": "comment",
+        "z": "d04092592b4ca4c5",
+        "name": "need pass and ms send ",
+        "info": "",
+        "x": 880,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "f03bd45f2713e2b4",
+        "type": "ui_text_input",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "label": "nhập tên:",
+        "tooltip": "",
+        "group": "ed26ce0b24e0b720",
+        "order": 4,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1060,
+        "y": 500,
+        "wires": [
+            [
+                "1623d84f7c16e301"
+            ]
+        ]
+    },
+    {
+        "id": "ba6576687d8e285d",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "fl_selected",
+        "payloadType": "flow",
+        "x": 1100,
+        "y": 680,
+        "wires": [
+            [
+                "6abc7c3690a48e03"
+            ]
+        ]
+    },
+    {
+        "id": "6abc7c3690a48e03",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "6db990a621fb863e",
+        "type": "ui_button",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "ed26ce0b24e0b720",
+        "order": 7,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Set ID",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1050,
+        "y": 620,
+        "wires": [
+            [
+                "a1609b51a45a5d64"
+            ]
+        ]
+    },
+    {
+        "id": "a1609b51a45a5d64",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "set name",
+        "func": "var date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nmsg.hour = hour;\nmsg.minute = minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n//=============================================================\nvar selected = flow.get('fl_selected') || {}\nvar arrID = global.get(\"gl_arr_ID\") || [];\n\n//check pass\nif (!selected.pass)\n{\n    statusString = `wrong pass!!`\n    node.status({ fill: \"red\", shape: \"dot\", text: statusString });\n    msg.payload = \"wrong pass !!!\";\n    return msg;\n}\n\n//check id\nvar nameChecked = \"\";\nvar idChecked = \"\";\narrID.forEach(item=>{\n    if (item.id == selected.idSelected) \n    {\n        nameChecked = item.name;\n        idChecked = item.id;\n    }\n})\n\n// has't data, push to arrID\nif (!nameChecked || !idChecked )\n{\n    arrID.push({\n        \"name\": selected.name,\n        \"id\": selected.idSelected,\n    })\n    statusString = `push to ArrID with ${selected.idSelected}(${selected.name})`\n    node.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n    msg.payload = `add success with name: ${selected.name}!`;\n    return msg;\n}\n\n// has data, only change name\narrID.forEach(item=>{\n    if (item.id == selected.idSelected) \n    {\n        item.name = selected.name\n    }\n})\nstatusString = `change name ${selected.idSelected}(${selected.name})`\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nmsg.payload = `change success with name: ${selected.name}!`;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 620,
+        "wires": [
+            [
+                "a78901699c2a8ca8"
+            ]
+        ]
+    },
+    {
+        "id": "26ed1bcff8d81e8e",
+        "type": "ui_text_input",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "label": "nhập pass:",
+        "tooltip": "",
+        "group": "ed26ce0b24e0b720",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "mode": "password",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1070,
+        "y": 560,
+        "wires": [
+            [
+                "33a3843ae97e6802"
+            ]
+        ]
+    },
+    {
+        "id": "33a3843ae97e6802",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "check pass",
+        "func": "var date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nmsg.hour = hour;\nmsg.minute = minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n//=============================================================\nvar selected = flow.get('fl_selected')||{}\nvar PASS = global.get('gl_pass') || null\nvar pass = msg.payload;\n\n\nif (pass != PASS)\n{\n    statusString = \"wrong pass\";\n    node.status({ fill: \"red\", shape: \"dot\", text: statusString });\n    selected.pass = false;\n    flow.set('fl_selected',selected);\n    return;\n}\n\nselected.pass = true;\nflow.set('fl_selected',selected);\n\nstatusString = \"oke\";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f9154e86816ed0b6",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "list ID",
+        "func": "var pass = msg.payload;\n\nglobal.set(\"gl_pass\", pass);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "82d996983ade3e01",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "PASS",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "pass1234",
+        "payloadType": "str",
+        "x": 1070,
+        "y": 720,
+        "wires": [
+            [
+                "f9154e86816ed0b6"
+            ]
+        ]
+    },
+    {
+        "id": "a78901699c2a8ca8",
+        "type": "ui_toast",
+        "z": "d04092592b4ca4c5",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Notion",
+        "name": "",
+        "x": 1350,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "744b335ba0de2ba4",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"lastID\":\"\",\"noti\":0,\"deg\":0,\"pir\":1,\"ip\":\"192.168.205.111\",\"t\":151042}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 1040,
+        "wires": [
+            [
+                "2740f50adca20d73",
+                "490ed58f77368b63"
+            ]
+        ]
+    },
+    {
+        "id": "490ed58f77368b63",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 14",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "ce20b36076c7891f",
+        "type": "ui_gauge",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "4878237036a2f276",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Led trái PK",
+        "label": "",
+        "format": "{{msg. ltpk}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#121212",
+            "#ffff00",
+            "#ffff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 830,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "c87930f11e4acae9",
+        "type": "ui_gauge",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "4878237036a2f276",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Led phải PK",
+        "label": "",
+        "format": "{{msg. lppk}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#121212",
+            "#ffff00",
+            "#ffff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 830,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "99e82cabb57da5c7",
+        "type": "ui_gauge",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "4878237036a2f276",
+        "order": 4,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Led PB",
+        "label": "",
+        "format": "{{msg. lpb}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#121212",
+            "#ffff00",
+            "#ffff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 820,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "713166c6cc3e627f",
+        "type": "ui_gauge",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "4878237036a2f276",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Quạt PK",
+        "label": "",
+        "format": "{{msg. qpk}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#121212",
+            "#ffff00",
+            "#ffff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 820,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "2740f50adca20d73",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "send UI",
+        "func": "var statusString = \"\" \nvar dataESP32 = msg.payload;\n\n//check data from ESP-Control\nif (!dataESP32)\n{\n    statusString = `wrong data (${dataESP32})`;\n    node.status({fill:\"red\", shape:\"dot\", text:statusString});\n    return;\n}\n\nfunction map_range(value, low1, high1, low2, high2) {\n    return Math.round(low2 + (high2 - low2) * (value - low1) / (high1 - low1))\n}\n\nvar g = map_range(dataESP32.g, 4095,0,0,100);\n\nmsg.nd = dataESP32.nd;\nmsg.da = dataESP32.da;\nmsg.g = g;\nmsg.lppk = dataESP32.lppk;\nmsg.ltpk = dataESP32.ltpk;\nmsg.qpk = dataESP32.qpk;\nmsg.lpb = dataESP32.lpb;\nmsg.qpb = dataESP32.qpb;\n\nstatusString += `nd(${msg.nd}°C)`;\nstatusString += `, da(${msg.da}%)`;\nstatusString += `, g:${msg.g}%(${dataESP32.g})`;\nstatusString += `, lppk(${msg.lppk})`;\nstatusString += `, ltpk(${msg.ltpk})`;\nstatusString += `, qpk(${msg.qpk})`;\nstatusString += `, lpb(${msg.lpb})`;\nstatusString += `, qpb(${msg.qpb})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 1040,
+        "wires": [
+            [
+                "1dd6eebc6376d114",
+                "9999cea2de5117f8",
+                "9d48ae286b1e7bb1",
+                "a34052cf22421c50",
+                "463c433c086d8e27",
+                "401e3d9167b355c4",
+                "c6cfe6295d6dc3be"
+            ]
+        ]
+    },
+    {
+        "id": "9999cea2de5117f8",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "led phải pk",
+        "func": "\nvar statusString = \"\";\n\nvar lppk = msg.lppk ? \"Mở\" : \"Tắt\";\nmsg.payload = lppk;\n\nstatusString += `lppk: ${msg.payload}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 840,
+        "wires": [
+            [
+                "c87930f11e4acae9"
+            ]
+        ]
+    },
+    {
+        "id": "1dd6eebc6376d114",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "led trái pk",
+        "func": "\nvar statusString = \"\";\n\nvar ltpk = msg.ltpk ? \"Mở\" : \"Tắt\";\nmsg.payload = ltpk;\n\nstatusString += `ltpk: ${msg.payload}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 780,
+        "wires": [
+            [
+                "ce20b36076c7891f"
+            ]
+        ]
+    },
+    {
+        "id": "9d48ae286b1e7bb1",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "led pb",
+        "func": "\nvar statusString = \"\";\n\nvar lpb = msg.lpb ? \"Mở\" : \"Tắt\";\nmsg.payload = lpb;\n\nstatusString += `lpb: ${msg.payload}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 900,
+        "wires": [
+            [
+                "99e82cabb57da5c7"
+            ]
+        ]
+    },
+    {
+        "id": "a34052cf22421c50",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "quạt pk",
+        "func": "\nvar statusString = \"\";\n\nvar qpk = msg.qpk ? \"Mở\" : \"Tắt\";\nmsg.payload = qpk;\n\nstatusString += `qpk: ${msg.payload}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 960,
+        "wires": [
+            [
+                "713166c6cc3e627f"
+            ]
+        ]
+    },
+    {
+        "id": "463c433c086d8e27",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "quạt pb",
+        "func": "\nvar statusString = \"\";\n\nvar qpb = msg.qpb ? \"Mở\" : \"Tắt\";\nmsg.payload = qpb;\n\nstatusString += `qpb: ${msg.payload}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 1020,
+        "wires": [
+            [
+                "2530c46fc8877ec0"
+            ]
+        ]
+    },
+    {
+        "id": "2530c46fc8877ec0",
+        "type": "ui_gauge",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "4878237036a2f276",
+        "order": 6,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Quạt PB",
+        "label": "",
+        "format": "{{msg. qpb}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#121212",
+            "#ffff00",
+            "#ffff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 820,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "80d8a0d5c6c69c62",
+        "type": "ui_chart",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "4878237036a2f276",
+        "order": 8,
+        "width": 6,
+        "height": 5,
+        "label": "Nhiệt độ & độ ẩm",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#2480c2",
+            "#c5a11b",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1150,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "401e3d9167b355c4",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": " push nhiệt độ & độ ẩm",
+        "func": "var date = new Date();\nvar statusString = date;\n////////////\nvar arrNd32 = global.get(\"gl_arr_nd32\") || [];\nvar arrDa32 = global.get(\"gl_arr_da32\") || [];\n\n//push\narrNd32.push({\n    \"x\": date,\n    \"y\": msg.nd,\n})\n\narrDa32.push({\n    \"x\": date,\n    \"y\": msg.da,\n})\n\nglobal.set(\"gl_arr_nd32\",arrNd32)\nglobal.set(\"gl_arr_da32\",arrDa32)\n// @ts-ignore\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 1100,
+        "wires": [
+            [
+                "b9c7a84c0e427129"
+            ]
+        ]
+    },
+    {
+        "id": "b9c7a84c0e427129",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "nhiệt độ & độ ẩm",
+        "func": "let d= new Date();\nlet timestamp=d.getTime();\n\nvar arrNd32 = global.get(\"gl_arr_nd32\") || [];\nvar arrDa32 = global.get(\"gl_arr_da32\") || [];\n\n\nmsg.payload=[{\n    \"series\": [\"Temp\", \"Hum\"],\n    \"data\": [ \n        arrNd32,\n        arrDa32\n    ],\n    \"labels\": [ \"C\", \"%\" ]\n}];\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 1100,
+        "wires": [
+            [
+                "80d8a0d5c6c69c62"
+            ]
+        ]
+    },
+    {
+        "id": "c6cfe6295d6dc3be",
+        "type": "ui_gauge",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "4878237036a2f276",
+        "order": 5,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Độ sạch không khí",
+        "label": "%",
+        "format": "{{msg.g}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#633375",
+            "#d55d2a",
+            "#56d13d"
+        ],
+        "seg1": "40",
+        "seg2": "60",
+        "className": "",
+        "x": 690,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "373924a3d570fda3",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "check msg",
+        "func": "var msg1={};\nvar mess = msg.payload\nif (mess == \"onlppk\")\n{\n    msg1.payload = \"đã mở led phải phòng khách, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"offlppk\")\n{\n    msg1.payload = \"đã tắt led phải phòng khách, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"onltpk\")\n{\n    msg1.payload = \"đã mở led trái phòng khách, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"offltpk\")\n{\n    msg1.payload = \"đã tắt led trái phòng khách, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"onqpk\")\n{\n    msg1.payload = \"đã mở quạt phòng khách, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"offqpk\")\n{\n    msg1.payload = \"đã tắt quạt phòng khách, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"onlpb\")\n{\n    msg1.payload = \"đã mở led phòng bếp, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"offlpb\")\n{\n    msg1.payload = \"đã tắt led phòng bếp, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"onqpb\")\n{\n    msg1.payload = \"đã mở quạt phòng bếp, vui lòng chờ...\";\n    return [msg,msg1];\n}\nif (mess == \"offqpb\")\n{\n    msg1.payload = \"đã tắt quạt phòng bếp, vui lòng chờ...\";\n    return [msg,msg1];\n}\nmsg.payload = 'msg wrong!!!';\nreturn [null,msg];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 1340,
+        "wires": [
+            [
+                "54a44b0faed1764a",
+                "f1b5b2b86811f677"
+            ],
+            [
+                "e98b9312b7066cd3"
+            ]
+        ]
+    },
+    {
+        "id": "e98b9312b7066cd3",
+        "type": "ui_toast",
+        "z": "d04092592b4ca4c5",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 570,
+        "y": 1380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "54a44b0faed1764a",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "f1b5b2b86811f677",
+        "type": "mqtt out",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "topic": "S-ESP-HOME",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 580,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "45d8f61a446d53f9",
+        "type": "ui_switch",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "label": "Led phải PK",
+        "tooltip": "",
+        "group": "5a532380956f8644",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "onlppk",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "offlppk",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 1300,
+        "wires": [
+            [
+                "373924a3d570fda3"
+            ]
+        ]
+    },
+    {
+        "id": "86aa6b5caade80ce",
+        "type": "ui_switch",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "label": "Led trái PK",
+        "tooltip": "",
+        "group": "5a532380956f8644",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "onltpk",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "offltpk",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 1340,
+        "wires": [
+            [
+                "373924a3d570fda3"
+            ]
+        ]
+    },
+    {
+        "id": "c5bde73824142dc5",
+        "type": "ui_switch",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "label": "Quạt PK",
+        "tooltip": "",
+        "group": "5a532380956f8644",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "onqpk",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "offqpk",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 120,
+        "y": 1380,
+        "wires": [
+            [
+                "373924a3d570fda3"
+            ]
+        ]
+    },
+    {
+        "id": "a1c60e381a4d647f",
+        "type": "ui_switch",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "label": "Led PB",
+        "tooltip": "",
+        "group": "5a532380956f8644",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "onlpb",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "offlpb",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 120,
+        "y": 1420,
+        "wires": [
+            [
+                "373924a3d570fda3"
+            ]
+        ]
+    },
+    {
+        "id": "ec37e091c776c0fd",
+        "type": "ui_switch",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "label": "Quạt PB",
+        "tooltip": "",
+        "group": "5a532380956f8644",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "onqpb",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "offqpb",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 120,
+        "y": 1460,
+        "wires": [
+            [
+                "373924a3d570fda3"
+            ]
+        ]
+    },
+    {
+        "id": "9658338cb0f5c453",
+        "type": "delay",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e47fce13f0967416",
+        "type": "ui_text",
+        "z": "d04092592b4ca4c5",
+        "group": "4878237036a2f276",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "thông báo:",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "c05b2b79e1f851b1",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "PIR",
+        "func": "var statusString = \"\"\nvar dataESP32GATE = msg.payload;\n\n//check data from ESP-Control\nif (!dataESP32GATE) {\n    statusString = `wrong data (${dataESP32GATE})`;\n    node.status({ fill: \"red\", shape: \"dot\", text: statusString });\n    return;\n}\n\nmsg.pir = dataESP32GATE.pir;\n\nvar pir = msg.pir ? \" Có người gần cửa.\" : \" Không có gì.\";\nmsg.payload = pir;\n\nstatusString += `pir: ${msg.payload}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 1220,
+        "wires": [
+            [
+                "e47fce13f0967416"
+            ]
+        ]
+    },
+    {
+        "id": "2845492cd99461c4",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "check pir",
+        "func": "var date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nmsg.hour = hour;\nmsg.minute = minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n//===========================================\nvar isOpen = flow.get('fl_isOpen');\n\nif (!isOpen)\n{\n    statusString += `door (${isOpen ? \"on\":\"off\"})`;\n    node.status({ fill: \"orange\", shape: \"dot\", text: statusString });\n    return;\n}\n    \n\nvar dataESP32GATE = msg.payload;\n\n//check data from ESP-Control\nif (!dataESP32GATE) {\n    statusString += `door (${isOpen ? \"on\":\"off\"}),`;\n    statusString += `wrong data (${dataESP32GATE})`;\n    node.status({ fill: \"yellow\", shape: \"dot\", text: statusString });\n    return;\n}\n\nvar pir = dataESP32GATE.pir;\n\nif (pir){\n    statusString += `door (${isOpen ? \"on\" : \"off\"}), `;\n    statusString += `pir: ${pir ? \"có người\" : \"k có người\"}`;\n    node.status({ fill: \"yellow\", shape: \"dot\", text: statusString });\n    return;\n}\n\nstatusString += `door (${isOpen ? \"on\":\"off\"}),`;\nstatusString += `pir:${pir?\"có người\":\"k có người\"}`;\nmsg.payload = \"send close the door\";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 500,
+        "wires": [
+            [
+                "ca7f5f09225074ff"
+            ]
+        ]
+    },
+    {
+        "id": "ca7f5f09225074ff",
+        "type": "trigger",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "op1": "",
+        "op2": "close",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "8",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 440,
+        "y": 480,
+        "wires": [
+            [
+                "7bf2188e7e71eeaf",
+                "e50b56f1835c0217"
+            ]
+        ]
+    },
+    {
+        "id": "acaea2f417721f83",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "9228716462a294de",
+        "type": "mqtt in",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "topic": "P-ESP-GATE",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a514943117bbaccb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 500,
+        "wires": [
+            [
+                "2845492cd99461c4"
+            ]
+        ]
+    },
+    {
+        "id": "e50b56f1835c0217",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "set false to fl_isOpen",
+        "func": "flow.set('fl_isOpen', false);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 480,
+        "wires": [
+            [
+                "d384f3064990a8cd"
+            ]
+        ]
+    },
+    {
+        "id": "f6417619be485052",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "gl_arr_login",
+        "payloadType": "global",
+        "x": 550,
+        "y": 80,
+        "wires": [
+            [
+                "e7ac7d312279ce1b"
+            ]
+        ]
+    },
+    {
+        "id": "e7ac7d312279ce1b",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1392836b7ae10f62",
+        "type": "inject",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "fl_isOpen",
+        "payloadType": "flow",
+        "x": 530,
+        "y": 120,
+        "wires": [
+            [
+                "2fe601f7b410879e"
+            ]
+        ]
+    },
+    {
+        "id": "2fe601f7b410879e",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0cee751f852dc8f0",
+        "type": "debug",
+        "z": "d04092592b4ca4c5",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "3931e44c2c6d8efc",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "selected Delete",
+        "func": "var statusString = \"\";\n\nvar selected = msg.payload;\n\nglobal.set(\"gl_selected_delete\", selected)\n\nmsg.payload = selected.id\nstatusString += `name:${selected.name}, (${selected.id})`;\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 220,
+        "wires": [
+            [
+                "5ff7618db9b6c3ec"
+            ]
+        ]
+    },
+    {
+        "id": "5ff7618db9b6c3ec",
+        "type": "ui_text",
+        "z": "d04092592b4ca4c5",
+        "group": "ed26ce0b24e0b720",
+        "order": 9,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "ID đang chọn để xóa: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 1660,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a316aa482f01fc45",
+        "type": "ui_button",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "group": "ed26ce0b24e0b720",
+        "order": 10,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Delete ID",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1380,
+        "y": 300,
+        "wires": [
+            [
+                "d020675dc4bd584b"
+            ]
+        ]
+    },
+    {
+        "id": "79b8ad0abc31282a",
+        "type": "ui_toast",
+        "z": "d04092592b4ca4c5",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Notion",
+        "name": "",
+        "x": 1710,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d020675dc4bd584b",
+        "type": "function",
+        "z": "d04092592b4ca4c5",
+        "name": "Delete",
+        "func": "var statusString = \"\";\n\nvar selected = global.get(\"gl_selected_delete\")\nvar selectedPass = flow.get('fl_selected') || {}\nvar arrID = global.get(\"gl_arr_ID\");\n\nif (!selectedPass.pass) {\n    statusString = `wrong pass!!`\n    node.status({ fill: \"red\", shape: \"dot\", text: statusString });\n    msg.payload = \"wrong pass !!!\";\n    return msg;\n}\n\n// find index item in Arr\nvar indexItem = arrID.findIndex(item => item.id == selected.id )\n//slice Arr\narrID = arrID.splice(indexItem, indexItem + 1)\n\nvar arrID = global.set(\"gl_arr_ID\", arrID);\nmsg.payload = `delete ${selected.name} (${selected.id}) successful`;\nstatusString += `IndexSelected:${indexItem}. delete(${selected.name}):${selected.id}`;\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 300,
+        "wires": [
+            [
+                "79b8ad0abc31282a"
+            ]
+        ]
+    },
+    {
+        "id": "16e1ba3eca4e7c39",
+        "type": "delay",
+        "z": "d04092592b4ca4c5",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 735,
+        "y": 380,
+        "wires": [
+            [
+                "d384f3064990a8cd"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "a514943117bbaccb",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ed26ce0b24e0b720",
+        "type": "ui_group",
+        "name": "Hệ thống quản lý",
+        "tab": "829a6eb75df8caba",
+        "order": 1,
+        "disp": true,
+        "width": 7,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4878237036a2f276",
+        "type": "ui_group",
+        "name": "Hệ thống giám sát",
+        "tab": "829a6eb75df8caba",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "71641a202d9aded0",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5a532380956f8644",
+        "type": "ui_group",
+        "name": "Hệ thống điều khiển",
+        "tab": "829a6eb75df8caba",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "829a6eb75df8caba",
+        "type": "ui_tab",
+        "name": "SMARTHOME",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

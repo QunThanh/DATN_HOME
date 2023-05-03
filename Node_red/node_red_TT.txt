@@ -1,0 +1,2333 @@
+[
+    {
+        "id": "962604ae9477ce29",
+        "type": "mqtt in",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "P-ESP",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "71641a202d9aded0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24d6d83a398fa039",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 390,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d28c41d083a4573e",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "onfan",
+        "payloadType": "str",
+        "x": 170,
+        "y": 340,
+        "wires": [
+            [
+                "24d6d83a398fa039"
+            ]
+        ]
+    },
+    {
+        "id": "6134b63f6288c8aa",
+        "type": "comment",
+        "z": "0c3ea894550f8a64",
+        "name": "NHAN_DATA",
+        "info": "",
+        "x": 170,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "37fc9f9c01fd4821",
+        "type": "comment",
+        "z": "0c3ea894550f8a64",
+        "name": "GUI_DATA",
+        "info": "",
+        "x": 400,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "fd4a255fc43ae47c",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "offfan",
+        "payloadType": "str",
+        "x": 170,
+        "y": 380,
+        "wires": [
+            [
+                "24d6d83a398fa039"
+            ]
+        ]
+    },
+    {
+        "id": "b2cb09c055f9ed9f",
+        "type": "comment",
+        "z": "0c3ea894550f8a64",
+        "name": "Pub",
+        "info": "",
+        "x": 150,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "19858a3387451305",
+        "type": "comment",
+        "z": "0c3ea894550f8a64",
+        "name": "SUB",
+        "info": "",
+        "x": 390,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "4bbf33fd07ddadfa",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "onled",
+        "payloadType": "str",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "24d6d83a398fa039"
+            ]
+        ]
+    },
+    {
+        "id": "c586aa58273d49e0",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "offled",
+        "payloadType": "str",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "24d6d83a398fa039"
+            ]
+        ]
+    },
+    {
+        "id": "d7129b16fa25af7f",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "auto",
+        "payloadType": "str",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "24d6d83a398fa039"
+            ]
+        ]
+    },
+    {
+        "id": "0ad63c82bcb8edb9",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "manual",
+        "payloadType": "str",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "24d6d83a398fa039"
+            ]
+        ]
+    },
+    {
+        "id": "7282782d3adfada3",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "threshold;1500",
+        "payloadType": "str",
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "24d6d83a398fa039"
+            ]
+        ]
+    },
+    {
+        "id": "05ef383ea8f8f6b9",
+        "type": "ui_text_input",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "label": "Nhập ngưỡng (32)",
+        "tooltip": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 1,
+        "width": 7,
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 450,
+        "y": 580,
+        "wires": [
+            [
+                "31493f80b441e121"
+            ]
+        ]
+    },
+    {
+        "id": "31493f80b441e121",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "update database",
+        "func": "var threshold = msg.payload;\n\nif(threshold > 100 || threshold < 1 )\n{\n    msg.payload = 'hãy nhập ngưỡng trong khoảng 0-100%';\n    return [null,msg];\n}\nvar nguong = flow.get('fl_nguong_dat');\nnguong.nguong32 = threshold;\n\nflow.set('fl_nguong_dat', nguong);\n\nmsg.payload = `${threshold}%`;\nvar msg1 = {};\nmsg1.payload = `ngưỡng đổi thành: ${threshold}%`;\nreturn [msg,msg1];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 580,
+        "wires": [
+            [
+                "99d61de984d64fe4",
+                "9331463932e1b395"
+            ],
+            [
+                "1b52d68a0573fa76"
+            ]
+        ]
+    },
+    {
+        "id": "99d61de984d64fe4",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "276fd831a9444fa7",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 7,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Mở Led",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "ledon32",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 620,
+        "y": 120,
+        "wires": [
+            [
+                "93c197f4472de7e7"
+            ]
+        ]
+    },
+    {
+        "id": "660ddf0c32c21b21",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 8,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Tắt Led",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "ledoff32",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 620,
+        "y": 160,
+        "wires": [
+            [
+                "93c197f4472de7e7"
+            ]
+        ]
+    },
+    {
+        "id": "2ffc521aed1f7b0f",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 5,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Mở máy bơm 8266",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "open8266",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 610,
+        "y": 300,
+        "wires": [
+            [
+                "786b5bbae3f21d71"
+            ]
+        ]
+    },
+    {
+        "id": "23ea17adc7bd0cf4",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 6,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Tắt máy bơm (8266)",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "close8266",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 620,
+        "y": 340,
+        "wires": [
+            [
+                "786b5bbae3f21d71"
+            ]
+        ]
+    },
+    {
+        "id": "ce6e5e11a776b931",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Tự động",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "auto",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 620,
+        "y": 420,
+        "wires": [
+            [
+                "5d26642a7048e474"
+            ]
+        ]
+    },
+    {
+        "id": "28581dd622c1653f",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 3,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Thủ công",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "manual",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 620,
+        "y": 460,
+        "wires": [
+            [
+                "5d26642a7048e474"
+            ]
+        ]
+    },
+    {
+        "id": "1b52d68a0573fa76",
+        "type": "ui_toast",
+        "z": "0c3ea894550f8a64",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 850,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "247c7caab6cf8281",
+        "type": "mqtt in",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "P-ESP32-CONTROL",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "71641a202d9aded0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "c83a9e6c97361ace",
+                "7d6602956ea3449d"
+            ]
+        ]
+    },
+    {
+        "id": "0bde2766a0bcfca5",
+        "type": "mqtt in",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "P-ESP32-PUMP",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "71641a202d9aded0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 920,
+        "wires": [
+            [
+                "81a5f7fe309b01e8",
+                "4d02f1a2e77bf80f"
+            ]
+        ]
+    },
+    {
+        "id": "449cbe49c23a758d",
+        "type": "mqtt in",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "P-ESP8266-PUMP",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "71641a202d9aded0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 1260,
+        "wires": [
+            [
+                "d44ef8622870e59a",
+                "7911791f02b28f14"
+            ]
+        ]
+    },
+    {
+        "id": "2224a9fe56d2997c",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "control",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"dataManual\":1,\"led\":1,\"bom32\":0,\"den32\":1,\"bom8266\":10,\"channel\":0,\"t\":5020}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 720,
+        "wires": [
+            [
+                "c83a9e6c97361ace",
+                "7d6602956ea3449d"
+            ]
+        ]
+    },
+    {
+        "id": "ec4bcddc669ad5c4",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "pum32",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"dataAuto\":1,\"bom32\":0,\"dat32\":0,\"nd32\":24.80,\"da32\":81.00,\"as32\":0,\"den32\":0,\"t\":116012}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 880,
+        "wires": [
+            [
+                "81a5f7fe309b01e8",
+                "4d02f1a2e77bf80f"
+            ]
+        ]
+    },
+    {
+        "id": "11a3d25a933098ca",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "pum8266",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"dataAuto\":1,\"bom8266\":0,\"dat8266\":1024,\"nd8266\":23.80,\"da8266\":79.00,\"t\":5102}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 1220,
+        "wires": [
+            [
+                "d44ef8622870e59a",
+                "7911791f02b28f14"
+            ]
+        ]
+    },
+    {
+        "id": "7d6602956ea3449d",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "get channel  ",
+        "func": "var statusString = \"\" \nvar date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nmsg.hour = hour;\nmsg.minute = minute;\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n//========\nvar dataEspControl = msg.payload;\n\n//check data from ESP-Control\nif (!dataEspControl.dataManual)\n{\n    statusString = `wrong data (${dataEspControl.dataManual})`;\n    node.status({fill:\"red\", shape:\"dot\", text:statusString});\n    return;\n}\n\nvar isAuto = dataEspControl.channel\nflow.set('fl_channel',isAuto);\nmsg.isAuto = isAuto;\nstatusString += `channel: ${isAuto ? \"auto\" : \"manual\"}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 760,
+        "wires": [
+            [
+                "9e241726afc2c47c",
+                "071736e973276ae6"
+            ]
+        ]
+    },
+    {
+        "id": "c83a9e6c97361ace",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "81a5f7fe309b01e8",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "9e241726afc2c47c",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check channel",
+        "func": "var statusString = \"\" \nvar dataEspControl = msg.payload;\n\n//check channel\nif (dataEspControl.channel)\n{\n    statusString = `channel: (${dataEspControl.channel ? \"auto\": \"error\"}, return)`;\n    node.status({fill:\"red\", shape:\"dot\", text:statusString});\n    return;\n}\n\nmsg.bom32 = dataEspControl.bom32;\nmsg.den32 = dataEspControl.den32;\nmsg.bom8266 = dataEspControl.bom8266;\n\nstatusString += `bom32: ${msg.bom32 == 10 ? \"on\" : \"off\"}`;\nstatusString += `, den32: ${msg.den32 ? \"on\" : \"off\"}`;\nstatusString += `, bom8266: ${msg.bom8266 == 10 ? \"on\" : \"off\"}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 760,
+        "wires": [
+            [
+                "24dab2bc40380937",
+                "d78c5f55b599d102",
+                "7999d02cddfd9749"
+            ]
+        ]
+    },
+    {
+        "id": "1e95e59339c1fe07",
+        "type": "ui_text",
+        "z": "0c3ea894550f8a64",
+        "group": "8589684dd0df779e",
+        "order": 2,
+        "width": 7,
+        "height": 1,
+        "name": "",
+        "label": "máy bơm (32): ",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 1140,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "d78c5f55b599d102",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check den32",
+        "func": "var statusString = \"\" \nvar den = msg.den32;\n\nmsg.payload = den ? \"ledon32\" : \"ledoff32\";\n\nstatusString = `den32: ${den ? \"ON\" : \"OFF\" } (${msg.payload})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 760,
+        "wires": [
+            [
+                "952669e070d1efb2",
+                "a9370fb09c66e0d5"
+            ]
+        ]
+    },
+    {
+        "id": "7999d02cddfd9749",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check bom8266",
+        "func": "var statusString = \"\" \nvar bom = msg.bom8266;\n\nmsg.payload = bom == 10 ? \"open8266\" : \"close8266\";\n\nstatusString = `bom8266: ${bom == 10 ? \"ON\" : \"OFF\"} (${msg.payload})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 820,
+        "wires": [
+            [
+                "6c154422c348823f",
+                "8ebab81b2b3d094a"
+            ]
+        ]
+    },
+    {
+        "id": "24dab2bc40380937",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check bom32",
+        "func": "var statusString = \"\" \nvar bom = msg.bom32;\n\nmsg.payload = bom == 10 ? \"open32\" : \"close32\";\n\nstatusString = `bom32: ${bom == 10 ? \"ON\" : \"OFF\"} (${msg.payload})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 700,
+        "wires": [
+            [
+                "83d53d3ddd849bc3",
+                "34b9a8a7cbf1b9b3"
+            ]
+        ]
+    },
+    {
+        "id": "0eff4818b2f02e62",
+        "type": "ui_text",
+        "z": "0c3ea894550f8a64",
+        "group": "8589684dd0df779e",
+        "order": 3,
+        "width": 7,
+        "height": 1,
+        "name": "",
+        "label": "Trạng thái đèn : ",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 1140,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "117649901b7f1f25",
+        "type": "ui_text",
+        "z": "0c3ea894550f8a64",
+        "group": "8589684dd0df779e",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "name": "",
+        "label": "máy bơm (8266): ",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 1150,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "4d02f1a2e77bf80f",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "send UI",
+        "func": "var statusString = \"\" \nvar date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nmsg.hour = hour;\nmsg.minute = minute;\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\nvar dataPump32 = msg.payload;\n\n//check data from ESP-Control\nif (!dataPump32.dataAuto)\n{\n    statusString = `wrong data (${dataPump32.dataAuto})`;\n    node.status({fill:\"red\", shape:\"dot\", text:statusString});\n    return;\n}\n\nvar isAuto = flow.get('fl_channel') ;\n\nmsg.isAuto = isAuto\nmsg.nd32 = dataPump32.nd32;\nmsg.da32 = dataPump32.da32;\nmsg.dat32 = dataPump32.dat32;\nmsg.as32 = dataPump32.as32;\n\nstatusString += `${isAuto ? \"auto\": \"manual\"}`\nstatusString += `: nd(${msg.nd32})`;\nstatusString += `, da(${msg.da32})`;\nstatusString += `, dat(${msg.dat32})`;\nstatusString += `, as(${msg.as32})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 920,
+        "wires": [
+            [
+                "97d6283bd1aca54a",
+                "5bb34bb1313a1e1d",
+                "a4c7e31a99b97ad7",
+                "d86d12ceba084f36"
+            ]
+        ]
+    },
+    {
+        "id": "97d6283bd1aca54a",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "D translate to %",
+        "func": "//t_00.0h_00.0a_1m_4020d_4020b_1l_1c_0\n// 4020 0%\n// 0    100%\nvar statusString = \"\";\n\nfunction map_range(value, low1, high1, low2, high2) {\n    return Math.round(low2 + (high2 - low2) * (value - low1) / (high1 - low1))\n}\n\nvar da = map_range(msg.dat32, 4095,0,0,100);\nmsg.payload = da;\n\nstatusString += `DA23: ${msg.payload}%`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 1000,
+        "wires": [
+            [
+                "472ab78f4e54ab07"
+            ]
+        ]
+    },
+    {
+        "id": "0d86304f4887ac1b",
+        "type": "ui_gauge",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "7d2548ad0662140a",
+        "order": 3,
+        "width": 7,
+        "height": 4,
+        "gtype": "donut",
+        "title": "Ánh sáng ngoài trời",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#121212",
+            "#ffff00",
+            "#ffff00"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 670,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "5bb34bb1313a1e1d",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "send AS",
+        "func": "//t_00.0h_00.0a_1m_4020d_4020b_1l_1c_0\n// 4020 0%\n// 0    100%\nvar statusString = \"\";\n\nvar as = msg.as32 ? \"Tối\" : \"Sáng\";\nmsg.payload = as;\n\nstatusString += `AS23: ${msg.payload}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 1060,
+        "wires": [
+            [
+                "0d86304f4887ac1b"
+            ]
+        ]
+    },
+    {
+        "id": "a4c7e31a99b97ad7",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check channel  ",
+        "func": "var statusString = \"\" \nvar dataPump32 = msg.payload;\n\n//check data from ESP-Control\nif (!msg.isAuto)\n{\n    statusString = `channel: ${msg.isAuto ? \"auto\" : \"manual\"}(${msg.isAuto}) return`;\n    node.status({fill:\"red\", shape:\"dot\", text:statusString});\n    return;\n}\n\nmsg.den32 = dataPump32.den32;\nmsg.bom32 = dataPump32.bom32;\n\nstatusString += `${msg.isAuto ? \"auto\" : \"manual\"}`;\nstatusString += ` den:${msg.den32}`;\nstatusString += ` bom:${msg.bom32}`;\n\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 880,
+        "wires": [
+            [
+                "80dd55ca54e5bed3",
+                "75d7a7c390bab409"
+            ]
+        ]
+    },
+    {
+        "id": "80dd55ca54e5bed3",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "sent to UI ( Pump, Led )  O1: PUMP O2: LED",
+        "func": "var statusString = \"\" \nvar msg2 = {}\n\nmsg.payload = msg.bom32 == 10 ? \"ON\" : \"OFF\";\nmsg2.payload = msg.den32 ? \"ON\" : \"OFF\";\n\nstatusString += ` bom:${msg.payload == 10 ? \"ON\" : \"OFF\"} (msg:${msg.payload})`;\nstatusString += ` den:${msg2.payload ? \"ON\" : \"OFF\"} (msg2:${msg2.payload})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn [msg, msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 880,
+        "wires": [
+            [
+                "1e95e59339c1fe07"
+            ],
+            [
+                "0eff4818b2f02e62"
+            ]
+        ]
+    },
+    {
+        "id": "75d7a7c390bab409",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "sent to ESP32  O1: PUMP  O2: LED",
+        "func": "var statusString = \"\" \nvar msg2 = {}\nvar as = msg.as32;\nfunction map_range(value, low1, high1, low2, high2) {\n    return Math.round(low2 + (high2 - low2) * (value - low1) / (high1 - low1))\n}\nvar dat = map_range(msg.dat32, 4095, 0, 0, 100);\n\nif (as == 0)    msg2.payload = \"ledoff32\";\nelse msg2.payload = \"ledon32\";\n\nvar nguong = flow.get('fl_nguong_dat');\n\nif (dat < nguong.nguong32)   msg.payload = \"open32\";\nelse msg.payload = \"close32\";\n\nstatusString += ` bom: (msg:${msg.payload}) n:${nguong.nguong32}}`;\nstatusString += ` den: (msg2:${msg2.payload})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn [msg, msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 940,
+        "wires": [
+            [
+                "90daace7e06fdd4a",
+                "eacc7ba1ede2b726"
+            ],
+            [
+                "72471ef7f0bee64e"
+            ]
+        ]
+    },
+    {
+        "id": "eacc7ba1ede2b726",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP32-PUMP",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1460,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "72471ef7f0bee64e",
+        "type": "delay",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 980,
+        "wires": [
+            [
+                "49595b60b539408a",
+                "c5d0d10351693eed"
+            ]
+        ]
+    },
+    {
+        "id": "5df9cfcb26536509",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP8266-PUMP",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1390,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "117df36a5e11b73b",
+        "type": "ui_chart",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "7d2548ad0662140a",
+        "order": 1,
+        "width": 7,
+        "height": 4,
+        "label": "Nhiệt độ & độ ẩm (32)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#2480c2",
+            "#c5a11b",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1000,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d86d12ceba084f36",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": " push nhiệt độ & độ ẩm",
+        "func": "var date = new Date();\nvar statusString = date;\n////////////\nvar arrNd32 = global.get(\"gl_arr_nd32\") || [];\nvar arrDa32 = global.get(\"gl_arr_da32\") || [];\n\n//push\narrNd32.push({\n    \"x\": date,\n    \"y\": msg.nd32,\n})\n\narrDa32.push({\n    \"x\": date,\n    \"y\": msg.da32,\n})\n\nglobal.set(\"gl_arr_nd32\",arrNd32)\nglobal.set(\"gl_arr_da32\",arrDa32)\n// @ts-ignore\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1120,
+        "wires": [
+            [
+                "26d4a109fd8f0381"
+            ]
+        ]
+    },
+    {
+        "id": "d44ef8622870e59a",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "7911791f02b28f14",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "send UI",
+        "func": "var statusString = \"\"\nvar date = new Date();\nvar hour = date.getHours();\nvar minute = date.getMinutes();\nvar timestamp = date.getTime();\nmsg.hour = hour;\nmsg.minute = minute;\nif (hour < 10) hour = \"0\" + hour;\nif (minute < 10) minute = \"0\" + minute;\nvar timeString = hour + \":\" + minute;\nvar statusString = timeString + \" • \";\nnode.status({ fill: \"blue\", shape: \"dot\", text: statusString });\n//=============\nvar dataPump32 = msg.payload;\n\n//check data from ESP-Control\nif (!dataPump32.dataAuto)\n{\n    statusString = `wrong data (${dataPump32.dataAuto})`;\n    node.status({fill:\"red\", shape:\"dot\", text:statusString});\n    return;\n}\n\nvar isAuto = flow.get('fl_channel') ;\n\nmsg.isAuto = isAuto\nmsg.nd8266 = dataPump32.nd8266;\nmsg.da8266 = dataPump32.da8266;\nmsg.dat8266 = dataPump32.dat8266;\n\nstatusString += `${isAuto ? \"auto\": \"manual\"}`\nstatusString += `: nd(${msg.nd8266})`;\nstatusString += `, da(${msg.da8266})`;\nstatusString += `, dat(${msg.dat8266})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1260,
+        "wires": [
+            [
+                "3d3d8fef68ad262a",
+                "742570a5cb278a4d",
+                "08585030b12308c3"
+            ]
+        ]
+    },
+    {
+        "id": "3d3d8fef68ad262a",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "D translate to %",
+        "func": "//t_00.0h_00.0a_1m_4020d_4020b_1l_1c_0\n// 4020 0%\n// 0    100%\nvar statusString = \"\";\n\nfunction map_range(value, low1, high1, low2, high2) {\n    return Math.round(low2 + (high2 - low2) * (value - low1) / (high1 - low1))\n}\n\nvar da = map_range(msg.dat8266, 1024,0,0,100);\nmsg.payload = da;\n\nstatusString += `DA8266: ${msg.payload}%`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 1340,
+        "wires": [
+            [
+                "dff9079259538345"
+            ]
+        ]
+    },
+    {
+        "id": "742570a5cb278a4d",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check channel  ",
+        "func": "var statusString = \"\" \nvar dataPump32 = msg.payload;\n\n//check data from ESP-Control\nif (!msg.isAuto)\n{\n    statusString = `channel: ${msg.isAuto ? \"auto\" : \"manual\"}(${msg.isAuto}) return`;\n    node.status({fill:\"red\", shape:\"dot\", text:statusString});\n    return;\n}\n\nmsg.bom8266 = dataPump32.bom8266;\n\nstatusString += `${msg.isAuto ? \"auto\" : \"manual\"}`;\nstatusString += ` bom:${msg.bom8266}`;\n\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 1220,
+        "wires": [
+            [
+                "e6f26ffe9b1c61ad",
+                "8341f0331afa220a"
+            ]
+        ]
+    },
+    {
+        "id": "e6f26ffe9b1c61ad",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "sent to UI ( Pump 8266)",
+        "func": "var statusString = \"\" \n\nmsg.payload = msg.bom8266 == 10 ? \"ON\" : \"OFF\";\n\nstatusString += ` bom:${msg.payload == 10 ? \"ON\" : \"OFF\"} (msg:${msg.payload})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn [msg];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 1220,
+        "wires": [
+            [
+                "117649901b7f1f25"
+            ]
+        ]
+    },
+    {
+        "id": "8341f0331afa220a",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "sent to ESP8266",
+        "func": "var statusString = \"\" \nfunction map_range(value, low1, high1, low2, high2) {\n    return Math.round(low2 + (high2 - low2) * (value - low1) / (high1 - low1))\n}\nvar dat = map_range(msg.dat8266, 1024, 0, 0, 100);\nvar nguong = flow.get('fl_nguong_dat');\n\nif (dat < nguong.nguong8266)   msg.payload = \"open8266\";\nelse msg.payload = \"close8266\";\n\nstatusString += ` bom: (msg:${msg.payload}). n:${nguong.nguong8266}}}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn [msg];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1280,
+        "wires": [
+            [
+                "902272e88a896e38",
+                "5df9cfcb26536509"
+            ]
+        ]
+    },
+    {
+        "id": "c5d0d10351693eed",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP32-PUMP",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1520,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "26d4a109fd8f0381",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "nhiệt độ & độ ẩm",
+        "func": "let d= new Date();\nlet timestamp=d.getTime();\n\nvar arrNd32 = global.get(\"gl_arr_nd32\") || [];\nvar arrDa32 = global.get(\"gl_arr_da32\") || [];\n\n\nmsg.payload=[{\n    \"series\": [\"Temp\", \"Hum\"],\n    \"data\": [ \n        arrNd32,\n        arrDa32\n    ],\n    \"labels\": [ \"C\", \"%\" ]\n}];\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1120,
+        "wires": [
+            [
+                "117df36a5e11b73b"
+            ]
+        ]
+    },
+    {
+        "id": "fc237fdb7116dd8a",
+        "type": "ui_chart",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "7d2548ad0662140a",
+        "order": 2,
+        "width": 7,
+        "height": 4,
+        "label": "Nhiệt độ & độ ẩm (8266)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#2480c2",
+            "#c5a11b",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1090,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "08585030b12308c3",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": " push nhiệt độ & độ ẩm",
+        "func": "var date = new Date();\nvar statusString = date;\n////////////\nvar arrNd8266 = global.get(\"gl_arr_nd8266\") || [];\nvar arrDa8266 = global.get(\"gl_arr_da8266\") || [];\n\n//push\narrNd8266.push({\n    \"x\": date,\n    \"y\": msg.nd8266,\n})\n\narrDa8266.push({\n    \"x\": date,\n    \"y\": msg.da8266,\n})\n\nglobal.set(\"gl_arr_nd8266\",arrNd8266)\nglobal.set(\"gl_arr_da8266\",arrDa8266)\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 1400,
+        "wires": [
+            [
+                "6fee8338f6e790e6"
+            ]
+        ]
+    },
+    {
+        "id": "6fee8338f6e790e6",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "nhiệt độ & độ ẩm",
+        "func": "let d= new Date();\nlet timestamp=d.getTime();\n\nvar arrNd8266 = global.get(\"gl_arr_nd8266\") || [];\nvar arrDa8266 = global.get(\"gl_arr_da8266\") || [];\n\n\nmsg.payload=[{\n    \"series\": [\"Temp\", \"Hum\"],\n    \"data\": [ \n        arrNd8266,\n        arrDa8266\n    ],\n    \"labels\": [ \"C\", \"%\" ]\n}];\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 1400,
+        "wires": [
+            [
+                "fc237fdb7116dd8a"
+            ]
+        ]
+    },
+    {
+        "id": "93c197f4472de7e7",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check Auto",
+        "func": "var statusString = \"\" \n\nvar isAuto = flow.get('fl_channel') ;\n\nmsg.isAuto = isAuto\n\n\nif(isAuto)\n{\n    msg.payload = 'đang ở auto, vui lòng đổi sáng Manual để điều khiển.';\n    return [null,msg];\n}\n\nreturn [msg,null];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 180,
+        "wires": [
+            [
+                "cd51fdaf4c1bf6f4",
+                "7a793983793b69b4"
+            ],
+            [
+                "d1db20834e2f4df0"
+            ]
+        ]
+    },
+    {
+        "id": "d1db20834e2f4df0",
+        "type": "ui_toast",
+        "z": "0c3ea894550f8a64",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1010,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cd51fdaf4c1bf6f4",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "cb5b97b7e76ceede",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 9,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Mở máy bơm (32)",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "open32",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 610,
+        "y": 200,
+        "wires": [
+            [
+                "93c197f4472de7e7"
+            ]
+        ]
+    },
+    {
+        "id": "5bb28c5de91b966a",
+        "type": "ui_button",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 10,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Tắt máy bơm (32)",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "close32",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 620,
+        "y": 240,
+        "wires": [
+            [
+                "93c197f4472de7e7"
+            ]
+        ]
+    },
+    {
+        "id": "5d26642a7048e474",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "noti",
+        "func": "var statusString = \"\" \nvar payload = msg.payload\nvar msg2={}\n\nvar isAuto = flow.get('fl_channel');\nvar stringAuto =  isAuto ? \"auto\" : 'manual'\n\nif (stringAuto == payload) return;\n\nif (payload == \"auto\") \n{\n    msg2.payload = \"Đã đổi sang chế độ AUTO\"\n    return [msg,msg2];\n}\n\nmsg2.payload = \"Đã đổi sang chế độ MANUAL\"\nreturn [msg,msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 420,
+        "wires": [
+            [
+                "ffd8e954e8ec39ef",
+                "a40eb7ecbfac8220"
+            ],
+            [
+                "011657d53083ac5d"
+            ]
+        ]
+    },
+    {
+        "id": "011657d53083ac5d",
+        "type": "ui_toast",
+        "z": "0c3ea894550f8a64",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 950,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ffd8e954e8ec39ef",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b154c08428fccaf4",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "buffer",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "oke",
+        "payloadType": "str",
+        "x": 210,
+        "y": 1480,
+        "wires": [
+            [
+                "4791577537e261b7"
+            ]
+        ]
+    },
+    {
+        "id": "4791577537e261b7",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "function 1",
+        "func": "var statusString = \"\";\nvar buffer = {\n    pump8266 : \"\",\n    pump32 : \"\",\n    den32 : \"\"\n} \nvar nguongDat = {\n    nguong32: 70,\n    nguong8266: 70,\n}\n\nflow.set('fl_nguong_dat', nguongDat);\nflow.set('fl_buffer',buffer);\nstatusString += `init done.`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90daace7e06fdd4a",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check loop",
+        "func": "var statusString = \"\";\nvar msgCurrent = msg.payload;\nvar buffer = flow.get('fl_buffer');\nvar msgPrev = buffer.pump32\n\nif (msgPrev == msgCurrent)\n{\n    statusString += `return, because duplicates. current:${msgCurrent} (pre:${msgPrev})`;\n    node.status({fill:\"yellow\", shape:\"dot\", text:statusString});\n    return;\n}\n\nbuffer.pump32 = msgCurrent;\nflow.set('fl_buffer',buffer);\nstatusString += `send done. current:${msgCurrent} (pre:${msgPrev})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "49595b60b539408a",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check loop",
+        "func": "var statusString = \"\";\nvar msgCurrent = msg.payload;\nvar buffer = flow.get('fl_buffer');\nvar msgPrev = buffer.den32\n\nif (msgPrev == msgCurrent)\n{\n    statusString += `return, because duplicates. current:${msgCurrent} (pre:${msgPrev})`;\n    node.status({fill:\"yellow\", shape:\"dot\", text:statusString});\n    return;\n}\n\nbuffer.den32 = msgCurrent;\nflow.set('fl_buffer',buffer);\nstatusString += `send done. current:${msgCurrent} (pre:${msgPrev})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "902272e88a896e38",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check loop",
+        "func": "var statusString = \"\";\nvar msgCurrent = msg.payload;\nvar buffer = flow.get('fl_buffer');\nvar msgPrev = buffer.pump8266\n\nif (msgPrev == msgCurrent)\n{\n    statusString += `return, because duplicates. current:${msgCurrent} (pre:${msgPrev})`;\n    node.status({fill:\"yellow\", shape:\"dot\", text:statusString});\n    return;\n}\n\nbuffer.pump8266 = msgCurrent;\nflow.set('fl_buffer',buffer);\nstatusString += `send done. current:${msgCurrent} (pre:${msgPrev})`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a40eb7ecbfac8220",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP32-CONTROL",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 980,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "786b5bbae3f21d71",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check Auto",
+        "func": "var statusString = \"\" \n\nvar isAuto = flow.get('fl_channel') ;\n\nmsg.isAuto = isAuto\n\n\nif(isAuto)\n{\n    msg.payload = 'đang ở auto, vui lòng đổi sáng Manual để điều khiển.';\n    return [null,msg];\n}\n\nreturn [msg,null];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 320,
+        "wires": [
+            [
+                "d2ea8818a11c7c8d",
+                "e92238e66c2a47bb"
+            ],
+            [
+                "3128d2e3d9c10e7e"
+            ]
+        ]
+    },
+    {
+        "id": "3128d2e3d9c10e7e",
+        "type": "ui_toast",
+        "z": "0c3ea894550f8a64",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1010,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d2ea8818a11c7c8d",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9331463932e1b395",
+        "type": "ui_text",
+        "z": "0c3ea894550f8a64",
+        "group": "8589684dd0df779e",
+        "order": 5,
+        "width": 7,
+        "height": 1,
+        "name": "",
+        "label": "Ngưỡng mở máy bơm (32):",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 900,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "abe670d3ddc3ca10",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "10s / 1time",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "5eb2aaf29c970cb3"
+            ]
+        ]
+    },
+    {
+        "id": "5eb2aaf29c970cb3",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "get nguong",
+        "func": "var nguong = flow.get('fl_nguong_dat');\nmsg.payload = `${nguong.nguong32}%`\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 520,
+        "wires": [
+            [
+                "9331463932e1b395"
+            ]
+        ]
+    },
+    {
+        "id": "98100ea9667788fe",
+        "type": "ui_text_input",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "label": "Nhập ngưỡng (8266)",
+        "tooltip": "",
+        "group": "4ebb5d94be207d4e",
+        "order": 2,
+        "width": 7,
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1140,
+        "y": 600,
+        "wires": [
+            [
+                "1679520caf2b8778"
+            ]
+        ]
+    },
+    {
+        "id": "1679520caf2b8778",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "func": "var threshold = msg.payload;\n\nif(threshold > 100 || threshold < 1 )\n{\n    msg.payload = 'hãy nhập ngưỡng trong khoảng 0-100%';\n    return [null,msg];\n}\n\nvar nguong = flow.get('fl_nguong_dat');\nnguong.nguong8266 = threshold;\n\nflow.set('fl_nguong_dat', nguong);\n\nmsg.payload = `${threshold}%`;\nvar msg1 = {};\nmsg1.payload = `ngưỡng đổi thành: ${threshold}%`;\nreturn [msg,msg1];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 600,
+        "wires": [
+            [
+                "01d141c5b340e87d",
+                "3c9dd967c7bba1a2"
+            ],
+            [
+                "64aff69cf7c0435d"
+            ]
+        ]
+    },
+    {
+        "id": "01d141c5b340e87d",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1510,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "64aff69cf7c0435d",
+        "type": "ui_toast",
+        "z": "0c3ea894550f8a64",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1510,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c9dd967c7bba1a2",
+        "type": "ui_text",
+        "z": "0c3ea894550f8a64",
+        "group": "8589684dd0df779e",
+        "order": 6,
+        "width": 7,
+        "height": 1,
+        "name": "",
+        "label": "Ngưỡng mở máy bơm (8266):",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 1570,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "62caa2a5857e053d",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "10s / 1time",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 1150,
+        "y": 540,
+        "wires": [
+            [
+                "5229fc400ef4f7bb"
+            ]
+        ]
+    },
+    {
+        "id": "5229fc400ef4f7bb",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "get nguong",
+        "func": "var nguong = flow.get('fl_nguong_dat');\nmsg.payload = `${nguong.nguong8266}%`\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 540,
+        "wires": [
+            [
+                "3c9dd967c7bba1a2"
+            ]
+        ]
+    },
+    {
+        "id": "dff9079259538345",
+        "type": "ui_gauge",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "7d2548ad0662140a",
+        "order": 4,
+        "width": 7,
+        "height": 4,
+        "gtype": "compass",
+        "title": "Độ ẩm đất (8266)",
+        "label": "%",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#bf982b",
+            "#b2df11",
+            "#4a7dbf"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 790,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "472ab78f4e54ab07",
+        "type": "ui_gauge",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "group": "7d2548ad0662140a",
+        "order": 5,
+        "width": 7,
+        "height": 4,
+        "gtype": "compass",
+        "title": "Độ ẩm đất (32)",
+        "label": "%",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#bf982b",
+            "#b2df11",
+            "#4a7dbf"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 720,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "6b4afffcf275f874",
+        "type": "ui_text",
+        "z": "0c3ea894550f8a64",
+        "group": "8589684dd0df779e",
+        "order": 1,
+        "width": 7,
+        "height": 1,
+        "name": "",
+        "label": "Chế độ:",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 700,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "071736e973276ae6",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "get channel  ",
+        "func": "var statusString = \"\" \nmsg.payload = msg.isAuto ? \"auto\" : \"manual\";\n\nstatusString += `channel: ${msg.payload ? \"auto\" : \"manual\"}`;\nnode.status({fill:\"blue\", shape:\"dot\", text:statusString});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 660,
+        "wires": [
+            [
+                "6b4afffcf275f874"
+            ]
+        ]
+    },
+    {
+        "id": "83d53d3ddd849bc3",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP32-PUMP",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1140,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "6c154422c348823f",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP8266-PUMP",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1150,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "4923ac6476947c2b",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP32-PUMP",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1140,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "952669e070d1efb2",
+        "type": "delay",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 740,
+        "wires": [
+            [
+                "4923ac6476947c2b"
+            ]
+        ]
+    },
+    {
+        "id": "34b9a8a7cbf1b9b3",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check bom32",
+        "func": "var statusString = \"\" \nvar bom = msg.bom32;\n\nmsg.payload = bom == 10 ? \"ON\" : \"OFF\";\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 700,
+        "wires": [
+            [
+                "1e95e59339c1fe07"
+            ]
+        ]
+    },
+    {
+        "id": "a9370fb09c66e0d5",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check den32",
+        "func": "var statusString = \"\" \nvar den = msg.den32;\n\nmsg.payload = den ? \"ON\" : \"OFF\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 780,
+        "wires": [
+            [
+                "0eff4818b2f02e62"
+            ]
+        ]
+    },
+    {
+        "id": "8ebab81b2b3d094a",
+        "type": "function",
+        "z": "0c3ea894550f8a64",
+        "name": "check bom8266",
+        "func": "var statusString = \"\" \nvar bom = msg.bom8266;\n\nmsg.payload = bom == 10 ? \"ON\" : \"OFF\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 820,
+        "wires": [
+            [
+                "117649901b7f1f25"
+            ]
+        ]
+    },
+    {
+        "id": "2a7a360fc17e7660",
+        "type": "inject",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "fl_channel",
+        "payloadType": "flow",
+        "x": 220,
+        "y": 1560,
+        "wires": [
+            [
+                "34349a64713c6b71"
+            ]
+        ]
+    },
+    {
+        "id": "34349a64713c6b71",
+        "type": "debug",
+        "z": "0c3ea894550f8a64",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "e92238e66c2a47bb",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP32-CONTROL",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1040,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7a793983793b69b4",
+        "type": "mqtt out",
+        "z": "0c3ea894550f8a64",
+        "name": "",
+        "topic": "S-ESP32-CONTROL",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "71641a202d9aded0",
+        "x": 1040,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "71641a202d9aded0",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4ebb5d94be207d4e",
+        "type": "ui_group",
+        "name": "Hệ thống điều khiển",
+        "tab": "925a2a2819c7246e",
+        "order": 1,
+        "disp": true,
+        "width": "28",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8589684dd0df779e",
+        "type": "ui_group",
+        "name": "Trạng thái các thiết bị",
+        "tab": "925a2a2819c7246e",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7d2548ad0662140a",
+        "type": "ui_group",
+        "name": "Hệ thống hiển thị",
+        "tab": "925a2a2819c7246e",
+        "order": 3,
+        "disp": true,
+        "width": 11,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "925a2a2819c7246e",
+        "type": "ui_tab",
+        "name": "DATN_TT",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

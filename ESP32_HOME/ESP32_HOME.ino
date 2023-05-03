@@ -4,7 +4,7 @@
 #include <WiFiClient.h>
 
 #define CB_GAS_PIN              39        
-#define DHT_PIN                 35         
+#define DHT_PIN                 17 //TX2         
 #define NUT_LED_PHAI_PKHACH     13         
 #define NUT_LED_TRAI_PKHACH     12      
 #define NUT_QUAT_PKHACH         14 
@@ -14,15 +14,15 @@
 #define LED_TRAI_PKHACH         33  
 #define QUAT_PKHACH             32         
 #define LED_PBEP                4        
-#define QUAT_PBEP               16   
+#define QUAT_PBEP               16  //RX2 
 
 
 WiFiClient client;
 PubSubClient mqtt_client(client);
 
-const char* ssid = "1234";
-const char* pass = "12345678c";
-const char *mqttserver = "192.168.55.217"; // ip laptop
+const char* ssid = "503 QANGMINHHOUSE.VN 0983397152";
+const char* pass = "888888889";
+const char *mqttserver = "192.168.5.108"; // ip laptop
 const int mqttport = 1883;
 const char *mqttid = "home";
 const char *toppicsub = "S-ESP-HOME";            // gói tin đăng ký với server để lấy tin từ server
@@ -30,6 +30,8 @@ const char *toppicpub = "P-ESP-HOME";            // gói tin đăng ký với se
 
 unsigned long old_time_report = millis();
 unsigned long delay_time_report = 5;       // 5s 
+unsigned long last_time_press = millis();
+unsigned long delay_time_press = 500;      // 500ms 
 
 // var interrupt
 bool nhanLedPhai = false;
@@ -71,7 +73,6 @@ void layGiaTriTuDHT()
 {
     doam = dht.readHumidity();
     nhietdo = dht.readTemperature();
-
     // neu nan thi set ve 0
     // nếu trả về là nan (00.0): báo thiết bị nối sai dây hoặc bị lỗi
     // nêu đúng dữ liệu sẽ trả về 23.7 và 70.0 (23.7 độ C và độ ẩm 70% )
@@ -92,19 +93,30 @@ void layGiaTriTuDHT()
 // p.khach
 void IRAM_ATTR xuly_nut_led_phai_pkhach()
 {
+  if (millis() - last_time_press < delay_time_press)
+    return;
+  last_time_press = millis();
+
   if (running_interrupt) return;
   running_interrupt = true;  
   nhanLedPhai = true;
 }
 void IRAM_ATTR xuly_nut_led_trai_pkhach()
 {
+  if (millis() - last_time_press < delay_time_press)
+    return;
+  last_time_press = millis();
+
   if (running_interrupt) return;
   running_interrupt = true;  
   nhanLedTrai = true;
-
 }
 void IRAM_ATTR xuly_nut_quat_pkhach()
 {
+  if (millis() - last_time_press < delay_time_press)
+    return;
+  last_time_press = millis();
+
   if (running_interrupt) return;
   running_interrupt = true;  
   nhanQuatPK = true;
@@ -113,12 +125,20 @@ void IRAM_ATTR xuly_nut_quat_pkhach()
 // p.bep
 void IRAM_ATTR xuly_nut_led_pbep()
 {
+  if (millis() - last_time_press < delay_time_press)
+    return;
+  last_time_press = millis();
+
   if (running_interrupt) return;
   running_interrupt = true;  
   nhanLedBep = true;
 }
 void IRAM_ATTR xuly_nut_quat_pbep()
 {
+  if (millis() - last_time_press < delay_time_press)
+    return;
+  last_time_press = millis();
+  
   if (running_interrupt) return;
   running_interrupt = true;  
   nhanQuatBep = true;
@@ -154,8 +174,8 @@ void xuLyNutNhan()
   // led phai p.khach
   if (nhanLedPhai)
   {
-    temp_value = digitalRead(LED_PHAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
-    ttLedPhaiPK = !temp_value;
+    temp_IO_value = digitalRead(LED_PHAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
+    ttLedPhaiPK = !temp_IO_value;
     digitalWrite(LED_PHAI_PKHACH, ttLedPhaiPK);        // đảo trạng thái máy bơm
     
     Serial.println("ledphai");
@@ -166,8 +186,8 @@ void xuLyNutNhan()
   // led trai p.khach
   if (nhanLedTrai)
   {
-    temp_value = digitalRead(LED_TRAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
-    ttLedTraiPK = !temp_value;
+    temp_IO_value = digitalRead(LED_TRAI_PKHACH);         // đọc trạng thái của máy bơm hiện tại.
+    ttLedTraiPK = !temp_IO_value;
     digitalWrite(LED_TRAI_PKHACH, ttLedTraiPK);        // đảo trạng thái máy bơm
     
     Serial.println("ledtrai");
@@ -178,8 +198,8 @@ void xuLyNutNhan()
   // quat p.khach  
   if (nhanQuatPK)
   {
-    temp_value = digitalRead(QUAT_PKHACH);           // đọc trạng thái của led hiện tại.
-    ttQuatPK = !temp_value;
+    temp_IO_value = digitalRead(QUAT_PKHACH);           // đọc trạng thái của led hiện tại.
+    ttQuatPK = !temp_IO_value;
     digitalWrite(QUAT_PKHACH, ttQuatPK);          // đảo trạng thái led
     
     Serial.println("quatkhach"); 
@@ -190,8 +210,8 @@ void xuLyNutNhan()
   // led p.bep
   if (nhanLedBep)
   {
-    temp_value = digitalRead(LED_PBEP);           // đọc trạng thái của led hiện tại.
-    ttLedBep = !temp_value;
+    temp_IO_value = digitalRead(LED_PBEP);           // đọc trạng thái của led hiện tại.
+    ttLedBep = !temp_IO_value;
     digitalWrite(LED_PBEP, ttLedBep);          // đảo trạng thái led
 
     Serial.println("ledbep"); 
@@ -202,8 +222,8 @@ void xuLyNutNhan()
   // quat p.bep  
   if (nhanQuatBep)
   {
-    temp_value = digitalRead(QUAT_PBEP);           // đọc trạng thái của led hiện tại.
-    ttQuatBep = !temp_value;
+    temp_IO_value = digitalRead(QUAT_PBEP);           // đọc trạng thái của led hiện tại.
+    ttQuatBep = !temp_IO_value;
     digitalWrite(QUAT_PBEP, ttQuatBep);          // đảo trạng thái led
     
     Serial.println("quatbep"); 
@@ -334,7 +354,6 @@ void callback(char *topic, byte *payload, unsigned int length)
 void reportReadings()
 {
     int buffer_cb_gas = analogRead(CB_GAS_PIN);
-
     String dataGuiServer = "{";
 
     // nhiet do
@@ -484,5 +503,7 @@ void loop() {
 
   xuLyNutNhan();
   
+  layGiaTriTuDHT();
+
   loopSendReport();
 }
