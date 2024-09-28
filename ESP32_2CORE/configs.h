@@ -3,7 +3,7 @@
 
 //Wifi
 #define NUM_WIFI                2               // NUM_WIFI == wifi_pw.length() == wifi_ssid.length()
-const char *wifi_ssid[]{"THENAM", "NTGD"};      // your wifi name
+const char *wifi_ssid[] = {"THENAM", "NTGD"};      // your wifi name
 const char *wifi_pw[] = {"0964941600", "112233445566"}; //your wifi password 
 
 //interrupt

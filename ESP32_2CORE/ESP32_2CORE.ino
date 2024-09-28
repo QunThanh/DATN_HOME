@@ -2,10 +2,7 @@
 #include "core0.h"
 #include "core1.h"
 
-#include <WiFi.h>
 #include <DHT.h>
-#include <PubSubClient.h>
-#include <WiFiClient.h>
 
 #define CB_GAS_PIN              39        
 #define DHT_PIN                 17 //TX2         
