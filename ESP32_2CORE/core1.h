@@ -5,9 +5,13 @@
 #include <PubSubClient.h>
 #include <WiFiClient.h>
 
+
+//==================
+// WIFI
+//==================
+
 WiFiMulti wifiMulti;
 
-// ======================== wifi ========================
 // ************ hàm hỗ trợ ************
 void showWiFiInfo(){
     IPAddress ip = WiFi.localIP();
@@ -87,18 +91,88 @@ void loopWiFi()
     // kiểm tra kết nối mạng định kì
     if (isConnectedWiFi()) return;
 
-    // Debug
     Serial.printf("[WiFi err] WiFi disconnected. Re-connecting now...\n");
 
-    // Try to connect to WiFi
+    // kết nối lại WiFi
     connectWiFi();
 }
+//==================
+// MQTT
+//==================
 
-// ======================== MQTT ========================
-// ************ hàm callback ************
+WiFiClient client;
+PubSubClient mqttClient(client);
 
+unsigned long mqttLastConnectedTime = 0;
 // ************ hàm hỗ trợ ************
+void getDataAndSendToNodeRed(); // hàm này được viết ở ESP32_2CORE.ino
+void handleCommandFromNodeRed(String cmd);  // hàm này được viết ở ESP32_2CORE.ino
+
+bool sendDataToNodeRed(String stringData){
+    if (mqttClient.connected()){
+        mqttClient.publish(TOPPIC_PUB, stringData.c_str());
+        return true;
+    }
+    return false;
+}
+
+
+// ************ hàm callback ************
+void callback(char *topic, byte *payload, unsigned int length)
+{
+    // viết ký hiệu hết chuỗi vào cuối chuỗi.
+    payload[len] = '\0';
+    // chuyển chuỗi thành string
+    String strPayload = String((char*)payload);
+    
+    Serial.printf("[MQTT callback] Server send: %s\n,", strPayload.c_str());
+    delay(10);
+    handleCommandFromNodeRed(strPayload);
+}
 
 // ************ hàm chính ************ 
+void setupMQTT() {
+    Serial.println("[MQTT] Connectting MQTT");
+    mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
+    mqttClient.setCallback(callback);
+    Serial.printf("[MQTT] MQTT Server: %s:%d\n", MQTT_SERVER, MQTT_PORT);
+    Serial.printf("[MQTT] MQTT Subscribe %s\n", TOPPIC_SUB);
+    Serial.printf("[MQTT] MQTT Publish: %s\n", TOPPIC_PUB);
+}
+
+void loopMqtt() {   
+    // kiểm tra kết nối MQTT
+    if (mqttClient.connected()){
+        mqttClient.loop();
+        mqttLastConnectedTime = millis();
+        return;
+    }
+    
+    // Nếu MQTT mất kết nối. Chờ 30s
+    unsigned long delta = millis() - mqttLastConnectedTime;
+    if (mqttLastConnectedTime > 0 && delta <= (MQTT_RECONNECT_TIME * 1000))
+        return;
+    
+    Serial.printf("[MQTT] MQTT Connecting...\n");
+    
+    // thử kết nối lại MQTT
+    if (mqttClient.connect(MQTT_ID)) {
+        Serial.printf("[MQTT] MQTT Connected\n");
+        mqttLastConnectedTime = millis();
+        
+        // đăng ký topic trên Server
+        mqttClient.subscribe(TOPPIC_SUB);
+
+        Serial.println("[MQTT] Connected MQTT");
+
+        // gửi gói tin lần đầu tiên lên server
+        getDataAndSendToNodeRed();
+        return;
+    }
+
+    // kết nối mqtt thất bại, chờ 30s kết nối lại
+    Serial.print(F("[MQTT err] MQTT failed to connect, rc="));
+    Serial.println(mqttClient.state());
+}
 
 #endif
