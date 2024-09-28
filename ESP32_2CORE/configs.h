@@ -3,8 +3,8 @@
 
 //Wifi
 #define NUM_WIFI                2               // NUM_WIFI == wifi_pw.length() == wifi_ssid.length()
-const char *wifi_ssid[] = {"THENAM", "NTGD"};      // your wifi name
-const char *wifi_pw[] = {"0964941600", "112233445566"}; //your wifi password 
+const char *wifi_ssid[] = {"Thuc Coffee", "NTGD"};      // your wifi name
+const char *wifi_pw[] = {"18006230", "112233445566"}; //your wifi password 
 
 //interrupt
 #define NUM_PIN_INTERRUPT       1                   
@@ -12,7 +12,8 @@ const char *wifi_pw[] = {"0964941600", "112233445566"}; //your wifi password
 
 //MQTT
 #define MQTT_RECONNECT_TIME     30              //30s
-#define MQTT_SERVER             "192.168.1.3"   //your IP
+#define MQTT_SEND_DATA_TIME     30              //30s
+#define MQTT_SERVER             "192.168.1.88"   //your IP
 #define MQTT_PORT               1883
 #define MQTT_ID                 "ESP"           // can change
 #define TOPPIC_SUB              "S-ESP"         // can change 'ESP', can't change 'S-'

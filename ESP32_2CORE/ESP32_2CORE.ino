@@ -5,7 +5,7 @@
 // hàm thu thập thông tin sau đó gửi lên Node-red
 void getDataAndSendToNodeRed()
 {
-    // String stringData = "{";
+    String stringData = "{";
 
     // // nhiet do
     // stringData += "\"nd\": \"";
@@ -56,18 +56,19 @@ void getDataAndSendToNodeRed()
     // stringData += "\"t\":";
     // stringData += String(now);
 
-    // stringData += "}";
+    stringData += "}";
 
-    // // Debug
-    // Serial.println(stringData);
+    // Debug
+    Serial.print("[MQTT] send msg to Node-red: ");
+    Serial.println(stringData);
 
-    // // Publish to MQTT
-    // boolean success = sendDataToNodeRed(stringData);
+    // Publish to MQTT
+    boolean success = sendDataToNodeRed(stringData);
 
-    // if (success)  return;
+    if (success)  return;
     
-    // // Error
-    // Serial.println("[MQTT err] Failed to publish to MQTT");
+    // Error
+    Serial.println("[MQTT err] Failed to publish to MQTT");
 }
 
 // hàm sử lý lệnh từ Node-red gửi xuống

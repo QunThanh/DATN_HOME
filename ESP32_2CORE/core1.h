@@ -2,6 +2,7 @@
 #define __CORE_1_H__
 
 #include <WiFi.h>
+#include <WiFiMulti.h>
 #include <PubSubClient.h>
 #include <WiFiClient.h>
 
@@ -16,13 +17,14 @@ WiFiMulti wifiMulti;
 void showWiFiInfo(){
     IPAddress ip = WiFi.localIP();
     Serial.println();
-    Serial.print("[WiFi i4] Connected to ");
-    Serial.println(WiFi.SSID());
-    Serial.print("[WiFi i4] IP: ");
+    Serial.print("[WiFi] Connected to \"");
+    Serial.print(WiFi.SSID());
+    Serial.println("\"");
+    Serial.print("[WiFi] IP: ");
     Serial.print(ip);
     Serial.print(" (Channel ");
     Serial.print(WiFi.channel());
-    Serial.print(" )");
+    Serial.println(")");
 }
 
 bool isConnectedWiFi(){
@@ -71,8 +73,6 @@ void setupWiFi(){
         return;
     }
 
-    esp_wifi_stop();
-
     // thêm thông tin vô WiFi Multi
     for (byte i=0; i < NUM_WIFI; i++)
         wifiMulti.addAP(wifi_ssid[i], wifi_pw[i]);
@@ -118,7 +118,7 @@ bool sendDataToNodeRed(String stringData){
 
 
 // ************ hàm callback ************
-void callback(char *topic, byte *payload, unsigned int length)
+void callback(char *topic, byte *payload, unsigned int len)
 {
     // viết ký hiệu hết chuỗi vào cuối chuỗi.
     payload[len] = '\0';
@@ -130,7 +130,7 @@ void callback(char *topic, byte *payload, unsigned int length)
     handleCommandFromNodeRed(strPayload);
 }
 
-// ************ hàm chính ************ 
+// ************ hàm chính ************
 void setupMQTT() {
     Serial.println("[MQTT] Connectting MQTT");
     mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
@@ -141,15 +141,24 @@ void setupMQTT() {
 }
 
 void loopMqtt() {   
+    unsigned long delta = millis() - mqttLastConnectedTime;
+    
     // kiểm tra kết nối MQTT
     if (mqttClient.connected()){
+        // hàm duy trì nhận lệnh từ Node-red
         mqttClient.loop();
+        
+        // < 30s bỏ hàm này
+        if (mqttLastConnectedTime > 0 && delta <= (MQTT_SEND_DATA_TIME * 1000))
+            return;
+        
+        // 30s gửi lên Node-red 1 lần
         mqttLastConnectedTime = millis();
+        getDataAndSendToNodeRed();
         return;
     }
     
     // Nếu MQTT mất kết nối. Chờ 30s
-    unsigned long delta = millis() - mqttLastConnectedTime;
     if (mqttLastConnectedTime > 0 && delta <= (MQTT_RECONNECT_TIME * 1000))
         return;
     
