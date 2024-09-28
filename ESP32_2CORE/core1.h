@@ -8,7 +8,7 @@
 WiFiMulti wifiMulti;
 
 // ======================== wifi ========================
-// *** hàm hỗ trợ ***
+// ************ hàm hỗ trợ ************
 void showWiFiInfo(){
     IPAddress ip = WiFi.localIP();
     Serial.println();
@@ -60,7 +60,7 @@ void connectWiFi(){
     showWiFiInfo();
 }
 
-// *** hàm chính *** 
+// ************ hàm chính ************ 
 void setupWiFi(){
     if (NUM_WIFI <= 0){
         Serial.println("[WiFi err] NUM_WIFI <= 0, check NUM_WIFI again");
@@ -93,5 +93,12 @@ void loopWiFi()
     // Try to connect to WiFi
     connectWiFi();
 }
+
+// ======================== MQTT ========================
+// ************ hàm callback ************
+
+// ************ hàm hỗ trợ ************
+
+// ************ hàm chính ************ 
 
 #endif
