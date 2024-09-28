@@ -79,8 +79,10 @@ void setupWiFi(){
 void loopWiFi()
 {
     // kiểm tra tổng số wf
-    if (NUM_WIFI <= 0)
+    if (NUM_WIFI <= 0){
+        Serial.println("[WiFi err] NUM_WIFI <= 0, check NUM_WIFI again");
         return;
+    }
 
     // kiểm tra kết nối mạng định kì
     if (isConnectedWiFi()) return;
