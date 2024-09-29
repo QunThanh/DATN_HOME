@@ -200,7 +200,7 @@ void printCenterLCD(int row, String mess)
     int len = mess.length();
     // nếu mess dài >= LCD_I2C_NUM_COL thì in như bình thường.
     if (len > LCD_I2C_NUM_COL - 2) {
-        printLCD(col, row, mess);
+        printLCD(0, row, mess);
         return;
     }
 
@@ -210,7 +210,7 @@ void printCenterLCD(int row, String mess)
     int numWhiteSpace = halfLine - startPrintPosition;
 
     // thêm khoảng trắng đằng trước
-    for (size_t i = 0; i < ; i++)
+    for (size_t i = 0; i < numWhiteSpace; i++)
         stringPrint += " ";
 
     // thêm mess 
@@ -240,7 +240,7 @@ void screen0(){
 // show DHT11
 void screen1(){
     String line0 = tempData + "\xDF" + humData + "%";    // 32.0°C - 75.0%
-    String line1 = "moi: " moi1 + "%," + moi2 "%";
+    String line1 = "moi: " + String(moi1Data) + "%, " + String(moi2Data) + "%";
 
     clearLCD();
     delay(10);
@@ -248,7 +248,7 @@ void screen1(){
     printCenterLCD(0, line0);
     delay(10);
 
-    printLCD(1, line1);
+    printLCD(0, 1, line1);
     delay(10);
 }
 

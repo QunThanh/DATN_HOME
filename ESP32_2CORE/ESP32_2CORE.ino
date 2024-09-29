@@ -1,6 +1,6 @@
 #include "configs.h"
-#include "core0.h"
-#include "core1.h"
+#include "network.h"
+#include "application.h"
 
 // NOTE: hàm này đã được khai báo ở core1.h
 // hàm thu thập thông tin sau đó gửi lên Node-red
