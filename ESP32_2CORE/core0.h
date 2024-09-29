@@ -11,6 +11,8 @@ DHT dht(DHT_PIN, DHT11);
 String humData = "00.0";
 String tempData = "00.0";
 
+unsigned long getDHTLastTime = millis();
+
 // ************ hàm hỗ trợ ************
 bool getDHT11Data(){
     // lấy dữ liệu tử DHT11
@@ -34,6 +36,14 @@ bool getDHT11Data(){
 void setupDHT() {
     dht.begin();
     Serial.println("[DHT] setup DHT done!");
+}
+
+void loopDHT() {
+    if (millis() - getDHTLastTime < DHT_GET_DATA_TIME * 1000)
+        return;
+    getDHTLastTime = millis();
+    
+    getDHT11Data();
 }
 
 //==================
