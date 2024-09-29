@@ -2,6 +2,39 @@
 #define __CORE_0_H__
 
 #include <DHT.h>
+#include <LiquidCrystal_I2C.h>
+
+
+//==================
+//  SENSOR
+//==================
+int moi1Data = 0;
+int moi2Data = 0;
+int gasData = 0;
+unsigned long getSensorLastTime = millis();
+
+// ************ hàm chính ************ 
+void setupSensor() {
+    pinMode(GAS_PIN, INPUT);
+    pinMode(MOI_1_PIN, INPUT);
+    pinMode(MOI_2_PIN, INPUT);
+    Serial.println("[Sensor] setup Sensor done!");
+}
+
+void loopSensor() {
+    if (millis() - getSensorLastTime < GET_SENSOR_DATA_TIME * 1000)
+        return;
+    getSensorLastTime = millis();
+
+    int moi1Raw = analogRead(MOI_1_PIN);
+    int moi2Raw = analogRead(MOI_2_PIN);
+    int gasRaw = analogRead(GAS_PIN);
+
+    moi1Data = map(moi1Raw, 0, 4095, 0, 100);
+    moi2Data = map(moi2Raw, 0, 4095, 0, 100);
+    gasData = map(gasRaw, 0, 4095, 0, 100);
+}
+
 
 //==================
 //  DHT 11
