@@ -164,6 +164,59 @@ void handleCommandFromNodeRed(String cmd){
     // }
 }
 
+// NOTE: hàm này đã được khai báo ở core0.h
+// hàm sử lý nút nhấn.
+void handlePressed() {
+    // kiểm tra có nút nào nhấn chưa?
+    if (!ledPressed && !fanPressed && !pumpPressed)
+        return;
+    // set trạng thái (đã sử dụng "ngắt" xong)
+    isRunningInterrupt = false;
+    bool statusCurrent;
+    
+    // ******** led ********
+    if (ledPressed) {
+        // đọc trạng thái led hiện tại.
+        statusCurrent = digitalRead(LED_PIN); 
+
+        // đảo trạng thái led
+        ledStatus = !statusCurrent;
+        digitalWrite(LED_PIN, ledStatus); 
+        // debug
+        Serial.printf("[handlePressed] Led : %s\n", ledStatus == false ? "off" : "on");
+        
+        // reset trạng thái nút nhấn
+        ledPressed = false;   
+        return;
+    }
+
+    // ******** fan ********
+    if (fanPressed) {
+        statusCurrent = digitalRead(FAN_PIN); 
+
+        fanStatus = !statusCurrent;
+        digitalWrite(FAN_PIN, fanStatus); 
+        
+        Serial.printf("[handlePressed] Fan : %s\n", fanStatus == false ? "off" : "on");
+        
+        fanPressed = false;   
+        return;
+    }
+
+    // ******** pump ********
+    if (pumpPressed) {
+        statusCurrent = digitalRead(PUMP_PIN); 
+
+        pumpStatus = !statusCurrent;
+        digitalWrite(PUMP_PIN, pumpStatus); 
+        
+        Serial.printf("[handlePressed] Pump : %s\n", pumpStatus == false ? "off" : "on");
+        
+        pumpPressed = false;   
+        return;
+    }
+}
+
 void setup() {
   Serial.begin(115200);
   
