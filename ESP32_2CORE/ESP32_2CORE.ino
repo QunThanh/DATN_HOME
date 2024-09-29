@@ -61,95 +61,69 @@ void getDataAndSendToNodeRed()
 // NOTE: hàm này đã được khai báo ở core1.h
 // hàm sử lý lệnh từ Node-red gửi xuống
 void handleCommandFromNodeRed(String cmd){
-    // threshold
-    // int num_index = cmd.indexOf(";");
-    // if(num_index > 0)
-    // {
-    //   String temp_threshold = String(cmd) + "*";  // thêm * vào cuối lệnh
-    //   Serial2.print(temp_threshold);              // gửi đi Slave
-    //   Serial.println(temp_threshold);             // debug
-    //   return;
-    // }
+    int numIndex = cmd.indexOf(";");
 
-    // // Led phai p.khach
-    // if (cmd == "onlppk")
-    // {
-    //     digitalWrite(LED_PHAI_PKHACH, HIGH);
-    //     ttLedPhaiPK = 1;
-    //     Serial.println("." + cmd + ".");      // debug
-    //     return;
-    // }
-    // if (cmd == "offlppk")
-    // {
-    //     digitalWrite(LED_PHAI_PKHACH, LOW);
-    //     ttLedPhaiPK = 0;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
+    // kiểm tra có ";" không?
+    if (numIndex < 0){
+        Serial.println("[handleCmd] cmd missing \";\".");
+        return;
+    }
 
-    // // Led trai p.khach
-    // if (cmd == "onltpk")
-    // {
-    //     digitalWrite(LED_TRAI_PKHACH, HIGH);
-    //     ttLedTraiPK = 1;
-    //     Serial.println("." + cmd + ".");      // debug
-    //     return;
-    // }
-    // if (cmd == "offltpk")
-    // {
-    //     digitalWrite(LED_TRAI_PKHACH, LOW);
-    //     ttLedTraiPK = 0;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
+    // tách thành 2 phần
+    // vd: led;0 (command = led, param = 0);
+    String command = cmd.substring(0, numIndex);
+    String param = cmd.substring(numIndex + 1);
+    int intParam = param.toInt();
 
-    // // quat p.khach
-    // if (cmd == "onqpk")
-    // {
-    //     digitalWrite(QUAT_PKHACH, HIGH);
-    //     ttQuatPK = 1;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
-    // if (cmd == "offqpk")
-    // {
-    //     digitalWrite(QUAT_PKHACH, LOW);
-    //     ttQuatPK = 0;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
+    //debug
+    Serial.printf("[handleCmd] cmd:\"%s\", pram: \"%d\"\n", command.c_str(), intParam);
 
-    // // led p.bep
-    // if (cmd == "onlpb")
-    // {
-    //     digitalWrite(LED_PBEP, HIGH);
-    //     ttLedBep = 1;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
-    // if (cmd == "offlpb")
-    // {
-    //     digitalWrite(LED_PBEP, LOW);
-    //     ttLedBep = 0;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
+    // set trạng thái led
+    if (command == "l")
+    {
+        if (intParam == ledStatus) {
+          Serial.printf("[handleCmd] led status nochange !!!\n");
+          return;
+        }
 
-    // // quat p.bep
-    // if (cmd == "onqpb")
-    // {
-    //     digitalWrite(QUAT_PBEP, HIGH);
-    //     ttQuatBep = 1;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
-    // if (cmd == "offqpb")
-    // {
-    //     digitalWrite(QUAT_PBEP, LOW);
-    //     ttQuatBep = 0;
-    //     Serial.println("." + cmd +".");      // debug
-    //     return;
-    // }
+        // on/off led
+        digitalWrite(LED_PIN, intParam);
+        // set lại trạng thái led
+        ledStatus = intParam;
+        // debug
+        Serial.printf("[handleCmd] led: %s\n", ledStatus == false ? "off" : "on");
+        return;
+    }
+
+    // set trạng thái quạt
+    if (command == "f")
+    {
+        if (intParam == fanStatus) {
+          Serial.printf("[handleCmd] fan status nochange !!!\n");
+          return;
+        }
+
+        digitalWrite(FAN_PIN, intParam);
+        fanStatus = intParam;
+        
+        Serial.printf("[handleCmd] fan: %s\n", fanStatus == false ? "off" : "on");
+        return;
+    }
+
+    // set trạng thái bơm
+    if (command == "p")
+    {
+        if (intParam == pumpStatus) {
+          Serial.printf("[handleCmd] pump status nochange !!!\n");
+          return;
+        }
+
+        digitalWrite(FAN_PIN, intParam);
+        pumpStatus = intParam;
+        
+        Serial.printf("[handleCmd] pump: %s\n", pumpStatus == false ? "off" : "on");
+        return;
+    }
 }
 
 // NOTE: hàm này đã được khai báo ở core0.h
@@ -207,33 +181,15 @@ void handlePressed() {
 
 void setup() {
   Serial.begin(115200);
-  
-  // pinMode(CB_GAS_PIN, INPUT);
-  // pinMode(LED_PHAI_PKHACH, OUTPUT);
-  // pinMode(LED_TRAI_PKHACH, OUTPUT);
-  // pinMode(QUAT_PKHACH, OUTPUT);
-  // pinMode(LED_PBEP, OUTPUT);
-  // pinMode(QUAT_PBEP, OUTPUT);
 
   setupWiFi();
   delay(50);
 
   setupMQTT();
   delay(50);
-
-  // setupInterrupt();
-  // delay(50);
-
-  // setupDHT();
-  // delay(50);
 }
 
 void loop() {
-  // xuLyNutNhan();
-  
-  // layGiaTriTuDHT();
-
-  // loopSendReport();
   loopWiFi();
   
   loopMqtt();
