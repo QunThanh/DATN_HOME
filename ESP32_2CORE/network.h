@@ -184,4 +184,53 @@ void loopMqtt() {
     Serial.println(mqttClient.state());
 }
 
+//==================
+// SETUP CORE
+//==================
+TaskHandle_t NetworkHandler;
+
+// ************ function core ************
+
+void setupNetwork() {
+    setupWiFi();
+    delay(50);
+
+    setupMQTT();
+    delay(50);
+}
+
+void loopNetwork() {
+    loopWiFi();
+    loopMqtt();
+}
+
+
+void NetworkFuncCode( void * pvParameters )
+{
+    delay(100);
+    Serial.printf("[Multitasking] Running NetworkFuncCode() on Core %i\n", xPortGetCoreID());
+
+    setupNetwork();  
+
+    while (true)
+    {
+        loopNetwork();
+    }
+}
+
+// ************ hàm chính ************
+void setupNetworkCore() {
+    int result = xTaskCreate(
+                    NetworkFuncCode,    /* task function */
+                    "network",          /* name of task */
+                    4096,             /* stack size of task */
+                    NULL,             /* parameter of the task */
+                    tskIDLE_PRIORITY, /* priority of the task, 0 = tskIDLE_PRIORITY is lowest priority */
+                    &NetworkHandler);   /* task handle/pointer to keep track of created task */
+
+    if (result)     Serial.printf("[Multitasking] Task network created: %i\n", result);
+    else            Serial.printf("[Multitasking] Failed to create Task 2 %i\n", result);
+}
+
+
 #endif

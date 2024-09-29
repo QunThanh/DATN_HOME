@@ -182,15 +182,11 @@ void handlePressed() {
 void setup() {
   Serial.begin(115200);
 
-  setupWiFi();
-  delay(50);
-
-  setupMQTT();
-  delay(50);
+  setupNetworkCore();
+  delay(100);
+  setupAppCore();
 }
 
 void loop() {
-  loopWiFi();
-  
-  loopMqtt();
+  // do nothing
 }

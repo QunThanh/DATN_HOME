@@ -281,4 +281,45 @@ void loopLCD() {
     }
 }
 
+//==================
+// SETUP CORE
+//==================
+TaskHandle_t ApplicationTask;
+
+// ************ function core ************
+
+void setupApp() {
+
+}
+
+void loopApp() {
+
+}
+
+void ApplicationFuncCode( void * pvParameters )
+{
+    delay(100);
+    Serial.printf("[Multitasking] Running ApplicationFuncCode() on Core %i\n", xPortGetCoreID());
+
+    setupApp();
+
+    while (true)
+    {
+        loopApp();
+    }
+}
+
+// ************ hàm chính ************
+void setupAppCore() {
+    int result = xTaskCreate(
+                    ApplicationFuncCode,    /* task function */
+                    "application",          /* name of task */
+                    4096,             /* stack size of task */
+                    NULL,             /* parameter of the task */
+                    1, /* priority of the task, 0 = tskIDLE_PRIORITY is lowest priority */
+                    &ApplicationTask);   /* task handle/pointer to keep track of created task */
+
+    if (result)     Serial.printf("[Multitasking] Task network created: %i\n", result);
+    else            Serial.printf("[Multitasking] Failed to create Task 2 %i\n", result);
+}
 #endif
