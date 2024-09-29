@@ -3,12 +3,11 @@
 
 //Wifi
 #define NUM_WIFI                2               // NUM_WIFI == wifi_pw.length() == wifi_ssid.length()
-const char *wifi_ssid[] = {"Thuc Coffee", "NTGD"};      // your wifi name
-const char *wifi_pw[] = {"18006230", "112233445566"}; //your wifi password 
+const char *wifi_ssid[] = {"Thuc Coffee", "Thanh"};      // your wifi name
+const char *wifi_pw[] = {"18006230", "aaaaaaaa"}; //your wifi password 
 
 //interrupt
-#define NUM_PIN_INTERRUPT       1                   
-#define MODE_INTERRUPT          RISING          // 5 mode: RISING, FALING, LOW, HIGH, CHANGE
+#define PRESS_DEBOUNCE_TIME     500             //500ms
 
 //MQTT
 #define MQTT_RECONNECT_TIME     30              //30s
@@ -20,10 +19,10 @@ const char *wifi_pw[] = {"18006230", "112233445566"}; //your wifi password
 #define TOPPIC_PUB              "P-ESP"         // can change 'ESP', can't change 'P-'
 
 //Application
-#define RED_LED_PIN             18              //IO18
-#define GREEN_LED_PIN           5               //IO5
+#define LED_PIN                 18              //IO18
+#define FAN_PIN                 5               //IO5
+#define PUMP_PIN                5               //IO5
 
 #define DHT_PIN                 19              //IO19
-#define DHTTYPE                 DHT11           //type DHT
 
 #endif
