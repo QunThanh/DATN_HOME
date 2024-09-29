@@ -31,9 +31,10 @@ const char *wifi_pw[] = {"18006230", "aaaaaaaa"}; //your wifi password
  *  1  - 1  - 1 = 0x27   // #default LCD
  */
 //LCD
-#define LCD_I2C_ADDR            0x27            // default address
+#define LCD_I2C_ADDR            0x27           // default address
 #define LCD_I2C_NUM_COL         20  
 #define LCD_I2C_NUM_ROW         2 
+#define LCD_CHANGE_SCREEN_TIME  5              // show screen/5s
 
 // DHT11
 #define DHT_PIN                 19              //IO19
