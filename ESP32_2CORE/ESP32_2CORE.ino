@@ -2,59 +2,46 @@
 #include "core0.h"
 #include "core1.h"
 
+// NOTE: hàm này đã được khai báo ở core1.h
 // hàm thu thập thông tin sau đó gửi lên Node-red
 void getDataAndSendToNodeRed()
 {
     String stringData = "{";
 
-    // // nhiet do
-    // stringData += "\"nd\": \"";
-    // stringData += str_nhietdo;
-    // stringData += "\",";
+    // nhiệt độ
+    stringData += "\"t\": \"";
+    stringData += tempData;
+    stringData += "\",";
 
-    // // do am
-    // stringData += "\"da\":\"";
-    // stringData += str_doam;
-    // stringData += "\",";
+    // độ ẩm
+    stringData += "\"h\":\"";
+    stringData += humData;
+    stringData += "\",";
 
-    // //gas
-    // stringData += "\"g\":";
-    // stringData += String(buffer_cb_gas);
-    // stringData += ",";
+    // trạng thái led
+    stringData += "\"l\":";
+    stringData += String(ledStatus);
+    stringData += ",";
 
-    // //led phai p.khach
-    // stringData += "\"lppk\":";
-    // stringData += String(ttLedPhaiPK);
-    // stringData += ",";
-
-    // //led trai p.khach
-    // stringData += "\"ltpk\":";
-    // stringData += String(ttLedTraiPK);
-    // stringData += ",";
+    // trạng thái quạt
+    stringData += "\"f\":";
+    stringData += String(fanStatus);
+    stringData += ",";
     
-    // //quat p.khach
-    // stringData += "\"qpk\":";
-    // stringData += String(ttQuatPK);
-    // stringData += ",";
+    // trạng thái bơm
+    stringData += "\"p\":";
+    stringData += String(pumpStatus);
+    stringData += ",";
 
-    // //led p.bep
-    // stringData += "\"lpb\":";
-    // stringData += String(ttLedBep);
-    // stringData += ",";
+    // địa chỉ ip của chip
+    stringData += "\"ip\":\"";
+    stringData += WiFi.localIP().toString();
+    stringData += "\",";
 
-    // //quat p.bep
-    // stringData += "\"qpb\":";
-    // stringData += String(ttQuatBep);
-    // stringData += ",";
-
-    // //ip
-    // stringData += "\"ip\":\"";
-    // stringData += WiFi.localIP().toString();
-    // stringData += "\",";
-
-    // unsigned long now = millis();
-    // stringData += "\"t\":";
-    // stringData += String(now);
+    // thời gian chip đã chạy
+    unsigned long now = millis();
+    stringData += "\"time\":";
+    stringData += String(now);
 
     stringData += "}";
 
@@ -71,6 +58,7 @@ void getDataAndSendToNodeRed()
     Serial.println("[MQTT err] Failed to publish to MQTT");
 }
 
+// NOTE: hàm này đã được khai báo ở core1.h
 // hàm sử lý lệnh từ Node-red gửi xuống
 void handleCommandFromNodeRed(String cmd){
     // threshold

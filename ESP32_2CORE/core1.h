@@ -105,7 +105,7 @@ PubSubClient mqttClient(client);
 
 unsigned long mqttLastConnectedTime = 0;
 // ************ hàm hỗ trợ ************
-void getDataAndSendToNodeRed(); // hàm này được viết ở ESP32_2CORE.ino
+void getDataAndSendToNodeRed();             // hàm này được viết ở ESP32_2CORE.ino
 void handleCommandFromNodeRed(String cmd);  // hàm này được viết ở ESP32_2CORE.ino
 
 bool sendDataToNodeRed(String stringData){
