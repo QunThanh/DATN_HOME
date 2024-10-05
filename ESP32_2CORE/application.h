@@ -89,6 +89,9 @@ void loopDHT() {
 unsigned long pressLastTime = millis();
 bool isRunningInterrupt = false;
 
+Mode modeStatus = Mode::AUTO;
+bool modePressed = false;
+
 bool ledStatus = false;
 bool ledPressed = false;
 
@@ -101,7 +104,7 @@ bool pumpPressed = false;
 // ************ hàm hỗ trợ ************
 void handlePressed(); // hàm này được viết ở ESP32_2CORE.ino
 
-void IRAM_ATTR pressedLedInterrupt() {
+void IRAM_ATTR pressedModeInterrupt() {
     // trong 500ms thì chỉ nhận 1 lần nhấn
     if (millis() - pressLastTime < PRESS_DEBOUNCE_TIME)
         return;
@@ -112,6 +115,16 @@ void IRAM_ATTR pressedLedInterrupt() {
     // set trạng thái (đang sử dụng "ngắt")
     isRunningInterrupt = true;  
     // set trạng thái (nút led đã đc nhấn)
+    modePressed = true;
+}
+
+void IRAM_ATTR pressedLedInterrupt() {
+    if (millis() - pressLastTime < PRESS_DEBOUNCE_TIME)
+        return;
+    pressLastTime = millis();
+
+    if (isRunningInterrupt) return;
+    isRunningInterrupt = true;  
     ledPressed = true;
 }
 void IRAM_ATTR pressedFanInterrupt() {
@@ -135,9 +148,11 @@ void IRAM_ATTR pressedPumpInterrupt(){
 
 // ************ hàm chính ************ 
 void setupInterrupt() {
+    pinMode(BTN_MODE_PIN, INPUT);
     pinMode(BTN_LED_PIN, INPUT);
     pinMode(BTN_FAN_PIN, INPUT);
     pinMode(BTN_PUMP_PIN, INPUT);
+    attachInterrupt(digitalPinToInterrupt(BTN_MODE_PIN), pressedModeInterrupt, FALLING);
     attachInterrupt(digitalPinToInterrupt(BTN_LED_PIN), pressedLedInterrupt, FALLING);
     attachInterrupt(digitalPinToInterrupt(BTN_FAN_PIN), pressedFanInterrupt, FALLING);
     attachInterrupt(digitalPinToInterrupt(BTN_PUMP_PIN), pressedPumpInterrupt, FALLING);

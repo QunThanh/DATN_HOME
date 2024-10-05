@@ -150,6 +150,21 @@ void handlePressed() {
     // set trạng thái (đã sử dụng "ngắt" xong)
     isRunningInterrupt = false;
     bool statusCurrent;
+
+    // ******** Mode ********
+    if (modePressed) {
+        // đọc trạng thái led hiện tại.
+        Mode modeCurrent = modeStatus; 
+
+        // đảo trạng thái led
+        modeStatus = modeCurrent == Mode::AUTO ? Mode::MANUAL : Mode::AUTO;
+        // debug
+        Serial.printf("[handlePressed] Mode : %s\n", modeStatus == Mode::AUTO ? "AUTO" : "MANUAL");
+        
+        // reset trạng thái nút nhấn
+        modePressed = false;   
+        return;
+    }
     
     // ******** led ********
     if (ledPressed) {

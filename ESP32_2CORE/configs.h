@@ -1,15 +1,21 @@
 #ifndef __CONFIGS_H__
 #define __CONFIGS_H__
 
-//Wifi
+// Wifi
 #define NUM_WIFI                2               // NUM_WIFI == wifi_pw.length() == wifi_ssid.length()
 const char *wifi_ssid[] = {"Thuc Coffee", "Thanh"};      // your wifi name
 const char *wifi_pw[] = {"18006230", "aaaaaaaa"}; //your wifi password 
 
-//interrupt
+// interrupt
 #define PRESS_DEBOUNCE_TIME     500             //500ms
 
-//MQTT
+// Mode
+enum Mode {
+    MANUAL,
+    AUTO,  
+};
+
+// MQTT
 #define MQTT_RECONNECT_TIME     30              //30s
 #define MQTT_SEND_DATA_TIME     30              //30s
 #define MQTT_SERVER             "192.168.1.88"  //your IP
@@ -45,6 +51,7 @@ const char *wifi_pw[] = {"18006230", "aaaaaaaa"}; //your wifi password
 #define FAN_PIN                 5               //IO5
 #define PUMP_PIN                4               //IO4
 
+#define BTN_MODE_PIN            18              //IO18
 #define BTN_LED_PIN             18              //IO18
 #define BTN_FAN_PIN             5               //IO5
 #define BTN_PUMP_PIN            4               //IO4
