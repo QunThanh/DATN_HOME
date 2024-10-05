@@ -15,6 +15,10 @@ unsigned long getSensorLastTime = millis();
 
 // ************ hàm chính ************ 
 void setupSensor() {
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(FAN_PIN, OUTPUT);
+    pinMode(PUMP_PIN, OUTPUT);
+
     pinMode(GAS_PIN, INPUT);
     pinMode(MOI_1_PIN, INPUT);
     pinMode(MOI_2_PIN, INPUT);
@@ -131,12 +135,12 @@ void IRAM_ATTR pressedPumpInterrupt(){
 
 // ************ hàm chính ************ 
 void setupInterrupt() {
-    pinMode(LED_PIN, INPUT);
-    pinMode(FAN_PIN, INPUT);
-    pinMode(PUMP_PIN, INPUT);
-    attachInterrupt(digitalPinToInterrupt(LED_PIN), pressedLedInterrupt, FALLING);
-    attachInterrupt(digitalPinToInterrupt(FAN_PIN), pressedFanInterrupt, FALLING);
-    attachInterrupt(digitalPinToInterrupt(PUMP_PIN), pressedPumpInterrupt, FALLING);
+    pinMode(BTN_LED_PIN, INPUT);
+    pinMode(BTN_FAN_PIN, INPUT);
+    pinMode(BTN_PUMP_PIN, INPUT);
+    attachInterrupt(digitalPinToInterrupt(BTN_LED_PIN), pressedLedInterrupt, FALLING);
+    attachInterrupt(digitalPinToInterrupt(BTN_FAN_PIN), pressedFanInterrupt, FALLING);
+    attachInterrupt(digitalPinToInterrupt(BTN_PUMP_PIN), pressedPumpInterrupt, FALLING);
     
     Serial.println("[Interrupt] setup Interrupt done!");
 }
@@ -222,6 +226,21 @@ void printCenterLCD(int row, String mess)
 }
 
 // show network info
+void screenInit(){
+    // line 0
+    String line0 = "PROJECT: DATN";
+    String line1 = "HELLO !!!";
+    
+    clearLCD();
+    delay(10);
+
+    printCenterLCD(0, line0);
+    delay(10);
+    
+    printCenterLCD(1, line1);
+    delay(10);
+}
+
 void screen0(){
     // line 0
     String line0 = "WF: " + WiFi.SSID();            // WF: WIFI_NAME
@@ -239,8 +258,8 @@ void screen0(){
 
 // show DHT11
 void screen1(){
-    String line0 = tempData + "\xDF" + humData + "%";    // 32.0°C - 75.0%
-    String line1 = "moi: " + String(moi1Data) + "%, " + String(moi2Data) + "%";
+    String line0 = tempData + "\xDF" + humData + "%";                           // 32.0°C - 75.0%
+    String line1 = "moi: " + String(moi1Data) + "%, " + String(moi2Data) + "%"; // moi: 75% - 75%
 
     clearLCD();
     delay(10);
@@ -259,6 +278,8 @@ void setupLCD() {
     setBackLightLCD(1);
     // debug
     Serial.println("[LCD] Setup LCD done!!!");
+    // 
+    screenInit();
 }
 
 void loopLCD() {
@@ -289,20 +310,44 @@ TaskHandle_t ApplicationTask;
 // ************ function core ************
 
 void setupApp() {
+    // khai báo các chân IO
+    setupSensor();
+    delay(10);
 
+    // setup DHT11
+    setupDHT();
+    delay(10);
+
+    // khai báo chân sử dụng ngắt
+    setupInterrupt();
+    delay(10);
+
+    // setup LCD
+    setupLCD();
+    delay(10);
 }
 
 void loopApp() {
-
+    // sử lý nút nhấn.
+    handlePressed();
+    // lấy nhiệt độ, độ ẩm từ DHT11 (10s/ lần)
+    loopDHT();
+    // lấy độ ẩm từ cảm biến, lấy độ sạch không khí từ cb ga (5s/ lần)
+    loopSensor();
+    // hiển thị 2 màn hình thay phiên nhau (5s/ 1 màn hình)
+    loopLCD();
 }
 
 void ApplicationFuncCode( void * pvParameters )
 {
     delay(100);
+
+    // debug
     Serial.printf("[Multitasking] Running ApplicationFuncCode() on Core %i\n", xPortGetCoreID());
 
+    // setup application
     setupApp();
-
+    
     while (true)
     {
         loopApp();
@@ -314,7 +359,7 @@ void setupAppCore() {
     int result = xTaskCreate(
                     ApplicationFuncCode,    /* task function */
                     "application",          /* name of task */
-                    4096,             /* stack size of task */
+                    8192,             /* stack size of task */
                     NULL,             /* parameter of the task */
                     1, /* priority of the task, 0 = tskIDLE_PRIORITY is lowest priority */
                     &ApplicationTask);   /* task handle/pointer to keep track of created task */

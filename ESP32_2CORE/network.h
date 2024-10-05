@@ -193,10 +193,10 @@ TaskHandle_t NetworkHandler;
 
 void setupNetwork() {
     setupWiFi();
-    delay(50);
+    delay(10);
 
     setupMQTT();
-    delay(50);
+    delay(10);
 }
 
 void loopNetwork() {
@@ -208,8 +208,11 @@ void loopNetwork() {
 void NetworkFuncCode( void * pvParameters )
 {
     delay(100);
+    
+    // debug
     Serial.printf("[Multitasking] Running NetworkFuncCode() on Core %i\n", xPortGetCoreID());
-
+    
+    // setup Network
     setupNetwork();  
 
     while (true)

@@ -9,14 +9,29 @@ void getDataAndSendToNodeRed()
     String stringData = "{";
 
     // nhiệt độ
-    stringData += "\"t\": \"";
+    stringData += "\"t\":";
     stringData += tempData;
-    stringData += "\",";
+    stringData += ",";
 
     // độ ẩm
-    stringData += "\"h\":\"";
+    stringData += "\"h\":";
     stringData += humData;
-    stringData += "\",";
+    stringData += ",";
+
+    // độ ẩm đất 1
+    stringData += "\"m1\":";
+    stringData += String(moi1Data);
+    stringData += ",";
+
+    // độ ẩm đất 2
+    stringData += "\"m2\":";
+    stringData += String(moi2Data);
+    stringData += ",";
+
+    // cảm biến ga
+    stringData += "\"g\":";
+    stringData += String(gasData);
+    stringData += ",";
 
     // trạng thái led
     stringData += "\"l\":";
@@ -82,8 +97,8 @@ void handleCommandFromNodeRed(String cmd){
     if (command == "l")
     {
         if (intParam == ledStatus) {
-          Serial.printf("[handleCmd] led status nochange !!!\n");
-          return;
+            Serial.printf("[handleCmd] led status nochange !!!\n");
+            return;
         }
 
         // on/off led
@@ -99,8 +114,8 @@ void handleCommandFromNodeRed(String cmd){
     if (command == "f")
     {
         if (intParam == fanStatus) {
-          Serial.printf("[handleCmd] fan status nochange !!!\n");
-          return;
+            Serial.printf("[handleCmd] fan status nochange !!!\n");
+            return;
         }
 
         digitalWrite(FAN_PIN, intParam);
@@ -114,8 +129,8 @@ void handleCommandFromNodeRed(String cmd){
     if (command == "p")
     {
         if (intParam == pumpStatus) {
-          Serial.printf("[handleCmd] pump status nochange !!!\n");
-          return;
+            Serial.printf("[handleCmd] pump status nochange !!!\n");
+            return;
         }
 
         digitalWrite(FAN_PIN, intParam);
@@ -180,11 +195,10 @@ void handlePressed() {
 }
 
 void setup() {
-  Serial.begin(115200);
-
-  setupNetworkCore();
-  delay(100);
-  setupAppCore();
+    Serial.begin(115200);
+    setupNetworkCore();
+    delay(1000);
+    setupAppCore();
 }
 
 void loop() {

@@ -45,6 +45,10 @@ const char *wifi_pw[] = {"18006230", "aaaaaaaa"}; //your wifi password
 #define FAN_PIN                 5               //IO5
 #define PUMP_PIN                4               //IO4
 
+#define BTN_LED_PIN             18              //IO18
+#define BTN_FAN_PIN             5               //IO5
+#define BTN_PUMP_PIN            4               //IO4
+
 #define GAS_PIN                 3               //IO3
 #define MOI_1_PIN               1               //IO1
 #define MOI_2_PIN               2               //IO2
