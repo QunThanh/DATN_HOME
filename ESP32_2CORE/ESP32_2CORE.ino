@@ -8,6 +8,11 @@ void getDataAndSendToNodeRed()
 {
     String stringData = "{";
 
+    // chế độ hoạt động
+    stringData += "\"mode\":";
+    stringData += modeStatus;
+    stringData += ",";
+
     // nhiệt độ
     stringData += "\"t\":";
     stringData += tempData;
