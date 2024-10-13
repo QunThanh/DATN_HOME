@@ -56,6 +56,28 @@ enum Mode {
 #define BTN_FAN_PIN             5               //IO5
 #define BTN_PUMP_PIN            4               //IO4
 
+/**
+Tên cảm biến	Loại khí đo
+MQ-2	Mêtan, Butan, LPG, Khói
+MQ-3	Rượu, Ethanol, Khói thuốc
+MQ-4	Khí mêtan, khí CNG
+MQ-5	Khí tự nhiên, LPG
+MQ-6	LPG, butan
+MQ-7	Carbon Monoxide
+MQ-8	Khí hydro
+MQ-9	Carbon Monoxide, khí dễ cháy
+MQ131	Ozone
+MQ135	Chất lượng không khí
+MQ136	Khí hiđro sunfua
+MQ137	Amoniac
+MQ138	Benzen, Toluen, Rượu, Propan, Khí Formaldehyde, Hydro
+MQ214	Mêtan, khí tự nhiên
+MQ216	Khí tự nhiên, Khí than
+MQ303A	Rượu, Ethanol, khói
+MQ306A	LPG, butan
+MQ307A	Carbon Monoxide
+MQ309A	Carbon Monoxide, khí dễ cháy
+ */
 #define GAS_PIN                 3               //IO3
 #define MOI_1_PIN               1               //IO1
 #define MOI_2_PIN               2               //IO2
